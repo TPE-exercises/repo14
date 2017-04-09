@@ -10,9 +10,18 @@ public class MyBTree implements BTree {
 	private final int degree;
 	private BTreeNode root;
 
+	/**
+	 * Constructor of the BTree
+	 * 
+	 * @param degree
+	 *            set the degree of the BTree
+	 * 
+	 * @throws GDIException
+	 *             if the degree is not an natural number
+	 */
 	public MyBTree(int degree) {
 		if (degree < 1) {
-			throw new GDIException("m is not a natural number");
+			throw new GDIException("degree is not an natural number");
 		}
 
 		this.degree = degree;
@@ -37,7 +46,7 @@ public class MyBTree implements BTree {
 		for (int i = 0; i < node.getValuesCount(); ++i) {
 			if (node.getValue(i) == null || node.getValue(i).compareTo(object) > 0) {
 				if (node.getChildren(i) == null) {
-					// we can just add it to the node
+					// We can just add it to the node
 					insertToNode(object, node, i);
 
 					if (isNodeBursted(node)) {
@@ -46,11 +55,11 @@ public class MyBTree implements BTree {
 
 					return true;
 				} else {
-					// there is an deeper node
+					// There is an deeper node
 					return insertRecursive(object, node.getChildren(i));
 				}
 			} else if (node.getValue(i).equals(object)) {
-				// the same object is already in the tree
+				// The same object is already in the tree
 				return false;
 			}
 		}
@@ -59,29 +68,29 @@ public class MyBTree implements BTree {
 	}
 
 	private boolean isNodeBursted(BTreeNode node) {
-		// if the node has an object on 2m+1 the node is bursted
+		// If the node has an object on 2m+1 the node is bursted
 		return node.getValue(node.getValuesCount() - 1) != null;
 	}
 
 	private void insertToNode(Integer object, BTreeNode node, int pos) {
-		// is an object already on this position?
+		// Is an object already on this position?
 		if (node.getValue(pos) == null) {
-			// we can just add it to the given position
+			// We can just add it to the given position
 			node.setValue(pos, object);
 		} else {
-			// jump to the second last position and move all values than bigger
+			// Jump to the second last position and move all values than bigger
 			// as our object one to the right to make space for the new object
 			for (int i = node.getValuesCount() - 2; i >= pos; --i) {
 				node.setValue(i + 1, node.getValue(i));
 				node.setChildren(i + 2, node.getChildren(i + 1));
 
 				if (i == 0) {
-					// the first children has to be moved also if the inserted
-					// value is the smallest in the node
+					// The first children has to be moved also if the inserted
+					// Value is the smallest in the node
 					node.setChildren(1, node.getChildren(1));
 				}
 			}
-			// set the object to the right position
+			// Set the object to the right position
 			node.setValue(pos, object);
 		}
 	}
@@ -93,13 +102,13 @@ public class MyBTree implements BTree {
 		if (node == root) {
 			BTreeNode newRoot = new BTreeNode(degree);
 
-			// add the object in the middle to the new root
+			// Add the object in the middle to the new root
 			newRoot.setValue(0, root.getValue(degree));
 
 			newRoot.setChildren(0, leftNode);
 			newRoot.setChildren(1, rightNode);
 
-			// split the root objects into two new nodes
+			// Split the root objects into two new nodes
 			splitIntoNodes(node, leftNode, rightNode);
 
 			root = newRoot;
@@ -110,7 +119,7 @@ public class MyBTree implements BTree {
 				throw new GDIException("no mother node found");
 			}
 
-			// find the right position to insert the object in the middle
+			// Find the right position to insert the object in the middle
 			for (int i = 0; i < motherNode.getValuesCount(); ++i) {
 				if (motherNode.getChildren(i) == node) {
 					insertToNode(node.getValue(degree), motherNode, i);
@@ -119,10 +128,10 @@ public class MyBTree implements BTree {
 				}
 			}
 
-			// split the root objects into two new nodes
+			// Split the root objects into two new nodes
 			splitIntoNodes(node, leftNode, rightNode);
 
-			// we have to split again if the mother node is bursted to
+			// We have to split again if the mother node is bursted to
 			if (isNodeBursted(motherNode)) {
 				split(motherNode);
 			}
@@ -130,7 +139,7 @@ public class MyBTree implements BTree {
 	}
 
 	private void splitIntoNodes(BTreeNode node, BTreeNode leftNode, BTreeNode rightNode) {
-		// split the objects from the root into two new nodes
+		// Split the objects from the root into two new nodes
 		for (int i = 0; i < degree; ++i) {
 			leftNode.setValue(i, node.getValue(i));
 			leftNode.setChildren(i, node.getChildren(i));
@@ -138,7 +147,7 @@ public class MyBTree implements BTree {
 			rightNode.setChildren(i + 1, node.getChildren(degree + 2 + i));
 		}
 
-		// the children m and m+1 are between the object for the new root
+		// The children m and m+1 are between the object for the new root
 		leftNode.setChildren(degree, node.getChildren(degree));
 		rightNode.setChildren(0, node.getChildren(degree + 1));
 	}
@@ -148,37 +157,37 @@ public class MyBTree implements BTree {
 			return null;
 		}
 
-		// search in all children of the node to identify the mother node
+		// Search in all children of the node to identify the mother node
 		for (int i = 0; i < node.getChildrenCount(); ++i) {
-			// we have found the mother node
+			// We have found the mother node
 			if (node.getChildren(i) == children) {
 				return node;
 			} else {
-				// we have to search also children of the children of the node
+				// We have to search also children of the children of the node
 				BTreeNode motherNode = findMotherNode(node.getChildren(i), children);
 
-				// we have found the mother node
+				// We have found the mother node
 				if (motherNode != null) {
 					return motherNode;
 				}
 			}
 		}
 
-		// mother node not found in this branch
+		// Mother node not found in this branch
 		return null;
 	}
 
 	@Override
 	public boolean insert(String filename) {
-		// check if the file exist if not there is nothing to insert
+		// Check if the file exist if not there is nothing to insert
 		if (!isFilePresent(filename)) {
-			// file not exist
+			// File not exist
 			return false;
 		}
 
 		Object file = openInputFile(filename);
 
-		// insert all values from the file in the current tree
+		// Insert all values from the file in the current tree
 		while (!isEndOfInputFile(file)) {
 			int value = readInt(file);
 			insert(value);
@@ -194,24 +203,24 @@ public class MyBTree implements BTree {
 	}
 
 	private boolean containsRecursive(Integer object, BTreeNode node) {
-		// the object is not in the tree
+		// The object is not in the tree
 		if (node == null) {
 			return false;
 		}
 
-		// check every value in the node until 2m - the last object in the node
+		// Check every value in the node until 2m - the last object in the node
 		// is null
 		for (int i = 0; i < node.getChildrenCount() - 1; ++i) {
 			if (node.getValue(i) == null || node.getValue(i).compareTo(object) > 0) {
-				// we have to go deeper in the tree
+				// We have to go deeper in the tree
 				return containsRecursive(object, node.getChildren(i));
 			} else if (node.getValue(i).equals(object)) {
-				// we found the object in the tree
+				// We found the object in the tree
 				return true;
 			}
 		}
 
-		// the last object is null so we have to search on link 2m
+		// The last object is null so we have to search on link 2m
 		return containsRecursive(object, node.getChildren(2 * degree));
 	}
 
@@ -219,7 +228,7 @@ public class MyBTree implements BTree {
 	public int size() {
 		BTreeNode node = root;
 		int size = 0;
-		// tree is empty
+		// Tree is empty
 		if (node == null) {
 			return size;
 		} else {
@@ -245,14 +254,13 @@ public class MyBTree implements BTree {
 
 	private int countElementsInNode(BTreeNode node) {
 		int elementsInNode = 0;
-		// count all elements in the node
+		// Count all elements in the node
 		for (int i = 0; i < node.getValuesCount(); i++) {
 			if (node.getValue(i) != null) {
 				elementsInNode++;
 			}
 		}
 		return elementsInNode;
-
 	}
 
 	@Override
@@ -271,28 +279,28 @@ public class MyBTree implements BTree {
 	@Override
 	public Integer getMax() {
 		BTreeNode node = root;
-		// tree is empty
+		// Tree is empty
 		if (node == null) {
 			throw new GDIException("the tree is empty");
 		} else {
 			Integer value = 0;
-			// check if we are on a leaf of the tree
+			// Check if we are on a leaf of the tree
 			boolean onLeaf = false;
-			// search in every node for the biggest element an the children of
+			// Search in every node for the biggest element an the children of
 			// it
 			for (int i = 0; i < node.getValuesCount() && onLeaf == false; i++) {
 				if (node.getValue(i) == null || i == node.getValuesCount() - 1) {
-					// node is full of element, the max is in the right node of
+					// Node is full of element, the max is in the right node of
 					// it
 					if (node.getChildren(i) != null) {
 						node = node.getChildren(i);
 						i = 0;
-						// the node is not full of elements, we step back to get
-						// the right child
+						// The node is not full of elements, we step back to get
+						// The right child
 					} else if (node.getChildren(i - 1) != null) {
 						node = node.getChildren(i - 1);
 						i = 0;
-						// on the right leaf and get the maximal element
+						// On the right leaf and get the maximal element
 					} else {
 						value = node.getValue(i - 1);
 						onLeaf = true;
@@ -307,11 +315,12 @@ public class MyBTree implements BTree {
 	@Override
 	public Integer getMin() {
 		BTreeNode node = root;
-		// empty tree
+		// Empty tree
 		if (node == null) {
 			throw new GDIException("the tree is empty");
 		}
-		// search for the value at the smallest value on the left side in the tree
+		// Search for the value at the smallest value on the left side in the
+		// tree
 		while (node.getChildren(0) != null) {
 			node = node.getChildren(0);
 		}
@@ -338,40 +347,40 @@ public class MyBTree implements BTree {
 
 	}
 
-	// recursive method for inorder
+	// Recursive method for inorder
 	private void printInorder(BTreeNode node) {
 		if (node == null) {
 			return;
 		} else {
 			for (int i = 0; i < node.getValuesCount(); i++) {
-				// get the children of one element
-				if(node.getChildren(i) != null)
+				// Get the children of one element
+				if (node.getChildren(i) != null)
 					printInorder(node.getChildren(i));
-				// get the element
-				if(node.getValue(i) != null){
+				// Get the element
+				if (node.getValue(i) != null) {
 					print(node.getValue(i) + ", ");
 				}
-					
+
 			}
 		}
 	}
-	
-	
+
 	@Override
 	public void printPostorder() {
 		printPostorder(root);
 	}
-	// recursive method for postorder
+
+	// Recursive method for postorder
 	private void printPostorder(BTreeNode node) {
 		if (node == null) {
 			return;
 		} else {
-			for(int i = 0; i < node.getValuesCount(); i++){
-				// get the children
-				if(node.getChildren(i) != null)
+			for (int i = 0; i < node.getValuesCount(); i++) {
+				// Get the children
+				if (node.getChildren(i) != null)
 					printPostorder(node.getChildren(i));
 			}
-			// get the full node
+			// Get the full node
 			printNode(node);
 		}
 	}
@@ -380,20 +389,20 @@ public class MyBTree implements BTree {
 	public void printPreorder() {
 		printPreorder(root);
 	}
-	
-	// recursive method for preorder
-	private void printPreorder(BTreeNode node){
+
+	// Recursive method for preorder
+	private void printPreorder(BTreeNode node) {
 		if (node == null) {
 			return;
 		} else {
-			for(int i = 0; i < node.getValuesCount(); i++){
-				// get the element between two children
-				if(node.getValue(i) != null)
+			for (int i = 0; i < node.getValuesCount(); i++) {
+				// Get the element between two children
+				if (node.getValue(i) != null)
 					print(node.getValue(i) + ", ");
-				// get the cildren of an element
-				if(node.getChildren(i) != null)
+				// Get the cildren of an element
+				if (node.getChildren(i) != null)
 					printPreorder(node.getChildren(i));
-			}	
+			}
 		}
 	}
 
@@ -403,7 +412,7 @@ public class MyBTree implements BTree {
 
 	}
 
-	// recursive method for levelorder
+	// Recursive method for levelorder
 	private void printLevelorder(BTreeNode node) {
 
 		if (node == null) {
@@ -412,18 +421,18 @@ public class MyBTree implements BTree {
 			BTreeNode temp = node;
 			Queue queue = new Queue();
 			queue.enter(node);
-			// the tree is not empty while the queue is not empty
+			// The tree is not empty while the queue is not empty
 			while (!queue.isEmpty()) {
 				temp = queue.leave();
-				// print the current node
+				// Print the current node
 				printNode(temp);
 				for (int i = 0; i < temp.getValuesCount(); i++) {
-					// get the children 
+					// Get the children
 					if (temp.getChildren(i) != null) {
 						queue.enter(temp.getChildren(i));
 					} else {
 						if (temp.getChildren(i) != null)
-							// enter the right child of the node
+							// Enter the right child of the node
 							queue.enter(temp.getChildren(++i));
 					}
 				}
@@ -432,20 +441,20 @@ public class MyBTree implements BTree {
 
 	}
 
-	// print the full Node
+	// Print the full Node
 	private void printNode(BTreeNode node) {
 		for (int i = 0; i < node.getValuesCount(); i++) {
-			// mark the beginning of an node
-			if(i == 0)
+			// Mark the beginning of an node
+			if (i == 0)
 				print("(");
 			if (node.getValue(i) != null) {
 				Integer value = node.getValue(i);
 				print(value);
-				if(node.getValue(i+1) != null)
+				if (node.getValue(i + 1) != null)
 					print(" ,");
 			}
-			// mark the end of an node
-			if(i == node.getValuesCount()-1)
+			// Mark the end of an node
+			if (i == node.getValuesCount() - 1)
 				print(")");
 		}
 	}
@@ -454,7 +463,7 @@ public class MyBTree implements BTree {
 	public MyLinkedList getAllElements() {
 		MyLinkedList list = new MyLinkedList();
 
-		// insert all objects to the list
+		// Insert all objects to the list
 		getAllElementsRecursive(list, root);
 
 		return list;
@@ -465,14 +474,14 @@ public class MyBTree implements BTree {
 			return;
 		}
 
-		// add all objects to the list
+		// Add all objects to the list
 		for (int i = 0; i < node.getValuesCount(); ++i) {
 			if (node.getValue(i) != null) {
 				list.addLast(node.getValue(i));
 			}
 		}
 
-		// go one level deeper in the tree
+		// Go one level deeper in the tree
 		for (int i = 0; i < node.getChildrenCount(); ++i) {
 			getAllElementsRecursive(list, node.getChildren(i));
 		}
@@ -491,7 +500,7 @@ public class MyBTree implements BTree {
 		MyBTree tree = new MyBTree(degree);
 
 		for (int i = 0; i < objects.size(); ++i) {
-			// insert all objects as an deep copy
+			// Insert all objects as an deep copy
 			tree.insert(new Integer(objects.get(i).intValue()));
 		}
 
