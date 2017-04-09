@@ -73,12 +73,12 @@ public class MyBTree implements BTree {
 			// as our object one to the right to make space for the new object
 			for (int i = node.getValuesCount() - 2; i >= pos; --i) {
 				node.setValue(i + 1, node.getValue(i));
-				node.setchildren(i + 2, node.getChildren(i + 1));
+				node.setChildren(i + 2, node.getChildren(i + 1));
 
 				if (i == 0) {
 					// the first children has to be moved also if the inserted
 					// value is the smallest in the node
-					node.setchildren(1, node.getChildren(1));
+					node.setChildren(1, node.getChildren(1));
 				}
 			}
 			// set the object to the right position
@@ -96,8 +96,8 @@ public class MyBTree implements BTree {
 			// add the object in the middle to the new root
 			newRoot.setValue(0, root.getValue(degree));
 
-			newRoot.setchildren(0, leftNode);
-			newRoot.setchildren(1, rightNode);
+			newRoot.setChildren(0, leftNode);
+			newRoot.setChildren(1, rightNode);
 
 			// split the root objects into two new nodes
 			splitIntoNodes(node, leftNode, rightNode);
@@ -114,8 +114,8 @@ public class MyBTree implements BTree {
 			for (int i = 0; i < motherNode.getValuesCount(); ++i) {
 				if (motherNode.getChildren(i) == node) {
 					insertToNode(node.getValue(degree), motherNode, i);
-					motherNode.setchildren(i, leftNode);
-					motherNode.setchildren(i + 1, rightNode);
+					motherNode.setChildren(i, leftNode);
+					motherNode.setChildren(i + 1, rightNode);
 				}
 			}
 
@@ -133,14 +133,14 @@ public class MyBTree implements BTree {
 		// split the objects from the root into two new nodes
 		for (int i = 0; i < degree; ++i) {
 			leftNode.setValue(i, node.getValue(i));
-			leftNode.setchildren(i, node.getChildren(i));
+			leftNode.setChildren(i, node.getChildren(i));
 			rightNode.setValue(i, node.getValue(degree + 1 + i));
-			rightNode.setchildren(i + 1, node.getChildren(degree + 2 + i));
+			rightNode.setChildren(i + 1, node.getChildren(degree + 2 + i));
 		}
 
 		// the children m and m+1 are between the object for the new root
-		leftNode.setchildren(degree, node.getChildren(degree));
-		rightNode.setchildren(0, node.getChildren(degree + 1));
+		leftNode.setChildren(degree, node.getChildren(degree));
+		rightNode.setChildren(0, node.getChildren(degree + 1));
 	}
 
 	private BTreeNode findMotherNode(BTreeNode node, BTreeNode children) {
