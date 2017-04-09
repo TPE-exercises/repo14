@@ -1,0 +1,5 @@
+Aufgabe 1: Pakete
+Es kann zu keinen Kollisionen kommen da wir explizit das Land, die Hochschule, Fakultät, Semester, 
+Fach und Gruppennummer angegeben haben
+Da es pro Semester nur eine Gruppennummer in dem bestimmten Fach an einer bestimmten Hochschule gibt, ist
+unsere Paketebezeichnung einmalig
