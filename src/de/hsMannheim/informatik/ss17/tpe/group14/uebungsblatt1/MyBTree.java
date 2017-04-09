@@ -1,8 +1,9 @@
-package de.hsMannheim.informatik.ss17.tpe.group14;
+package de.hsMannheim.informatik.ss17.tpe.group14.uebungsblatt1;
 
 import static gdi.MakeItSimple.*;
-import de.hsMannheim.informatik.ss17.tpe.group14.list.*;
-import de.hsMannheim.informatik.ss17.tpe.group14.queue.*;
+
+import de.hsMannheim.informatik.ss17.tpe.group14.uebungsblatt1.list.*;
+import de.hsMannheim.informatik.ss17.tpe.group14.uebungsblatt1.queue.*;
 
 public class MyBTree implements BTree {
 

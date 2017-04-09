@@ -1,10 +1,10 @@
-package de.hsMannheim.informatik.ss17.tpe.group14;
+package de.hsMannheim.informatik.ss17.tpe.group14.uebungsblatt1;
 
 import static gdi.MakeItSimple.*;
 import static org.junit.Assert.*;
 import org.junit.*;
 
-import de.hsMannheim.informatik.ss17.tpe.group14.list.*;
+import de.hsMannheim.informatik.ss17.tpe.group14.uebungsblatt1.list.*;
 
 public class BTreeTest {
 	

@@ -1,6 +1,6 @@
-package de.hsMannheim.informatik.ss17.tpe.group14;
+package de.hsMannheim.informatik.ss17.tpe.group14.uebungsblatt1;
 
-import de.hsMannheim.informatik.ss17.tpe.group14.list.MyLinkedList;
+import de.hsMannheim.informatik.ss17.tpe.group14.uebungsblatt1.list.MyLinkedList;
 import gdi.MakeItSimple.GDIException;
 
 public interface BTree {

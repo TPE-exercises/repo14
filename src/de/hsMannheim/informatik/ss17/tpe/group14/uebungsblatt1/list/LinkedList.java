@@ -1,4 +1,4 @@
-package de.hsMannheim.informatik.ss17.tpe.group14.list;
+package de.hsMannheim.informatik.ss17.tpe.group14.uebungsblatt1.list;
 
 /***
  * This interface define all required methods for a linked list

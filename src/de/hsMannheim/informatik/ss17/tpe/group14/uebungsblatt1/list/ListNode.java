@@ -1,4 +1,4 @@
-package de.hsMannheim.informatik.ss17.tpe.group14.list;
+package de.hsMannheim.informatik.ss17.tpe.group14.uebungsblatt1.list;
 
 /**
  * The class ListNode is a helper class for every kind of LinkedLists
