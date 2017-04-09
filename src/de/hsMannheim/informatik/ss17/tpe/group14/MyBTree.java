@@ -1,8 +1,8 @@
-package de.hsMannheim.informatik.ss17.tpe.mygroup;
+package de.hsMannheim.informatik.ss17.tpe.group14;
 
 import static gdi.MakeItSimple.*;
-import de.hsMannheim.informatik.ss17.tpe.mygroup.list.*;
-import de.hsMannheim.informatik.ss17.tpe.mygroup.queue.*;
+import de.hsMannheim.informatik.ss17.tpe.group14.list.*;
+import de.hsMannheim.informatik.ss17.tpe.group14.queue.*;
 
 public class MyBTree implements BTree {
 
@@ -337,6 +337,7 @@ public class MyBTree implements BTree {
 
 	}
 
+	// recursive method for inorder
 	private void printInorder(BTreeNode node) {
 		if (node == null) {
 			return;
@@ -359,6 +360,7 @@ public class MyBTree implements BTree {
 	public void printPostorder() {
 		printPostorder(root);
 	}
+	// recursive method for postorder
 	private void printPostorder(BTreeNode node) {
 		if (node == null) {
 			return;
@@ -378,13 +380,16 @@ public class MyBTree implements BTree {
 		printPreorder(root);
 	}
 	
+	// recursive method for preorder
 	private void printPreorder(BTreeNode node){
 		if (node == null) {
 			return;
 		} else {
 			for(int i = 0; i < node.getValuesCount(); i++){
+				// get the element between two children
 				if(node.getValue(i) != null)
 					print(node.getValue(i) + ", ");
+				// get the cildren of an element
 				if(node.getChildren(i) != null)
 					printPreorder(node.getChildren(i));
 			}	
@@ -397,6 +402,7 @@ public class MyBTree implements BTree {
 
 	}
 
+	// recursive method for levelorder
 	private void printLevelorder(BTreeNode node) {
 
 		if (node == null) {

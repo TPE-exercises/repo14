@@ -1,4 +1,4 @@
-package de.hsMannheim.informatik.ss17.tpe.mygroup.list;
+package de.hsMannheim.informatik.ss17.tpe.group14.list;
 
 import static gdi.MakeItSimple.*;
 

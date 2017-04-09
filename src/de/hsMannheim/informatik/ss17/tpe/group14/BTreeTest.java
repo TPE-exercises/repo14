@@ -1,9 +1,10 @@
-package de.hsMannheim.informatik.ss17.tpe.mygroup;
+package de.hsMannheim.informatik.ss17.tpe.group14;
 
 import static gdi.MakeItSimple.*;
 import static org.junit.Assert.*;
 import org.junit.*;
-import de.hsMannheim.informatik.ss17.tpe.mygroup.list.*;
+
+import de.hsMannheim.informatik.ss17.tpe.group14.list.*;
 
 public class BTreeTest {
 	

@@ -1,6 +1,6 @@
-package de.hsMannheim.informatik.ss17.tpe.mygroup.queue;
+package de.hsMannheim.informatik.ss17.tpe.group14.queue;
 
-import de.hsMannheim.informatik.ss17.tpe.mygroup.BTreeNode;
+import de.hsMannheim.informatik.ss17.tpe.group14.BTreeNode;
 import gdi.MakeItSimple.*;
 
 public class Queue {

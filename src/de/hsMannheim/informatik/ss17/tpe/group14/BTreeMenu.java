@@ -1,4 +1,4 @@
-package de.hsMannheim.informatik.ss17.tpe.mygroup;
+package de.hsMannheim.informatik.ss17.tpe.group14;
 
 import static gdi.MakeItSimple.*;
 
@@ -6,7 +6,7 @@ public class BTreeMenu {
 
 	private static MyBTree[] trees = new MyBTree[3];
 	private static MyBTree workingTree;
-	private static final String FILE_PATH = "src/de/hsMannheim/informatik/ss17/tpe/mygroup/values.txt";
+	private static final String FILE_PATH = "src/de/hsMannheim/informatik/ss17/tpe/group14/values.txt";
 
 	public static void main(String[] args) {
 		// Initalize BTree array
