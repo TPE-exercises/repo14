@@ -1,4 +1,4 @@
-package de.hsMannheim.informatik.ss17.tpe.group14.uebungsblatt2;
+package de.hsMannheim.informatik.ss17.tpe.group14.uebungsblatt2.aufgabe1;
 
 import static gdi.MakeItSimple.*;
 
@@ -23,35 +23,51 @@ public class Eis {
 	 */
 	Eis(String name, double preis, String behaeltnis, String art, String[] sorten, String... extras) {
 		this.name = name;
-		this.preis = preis;
-		this.behaeltnis = behaeltnis;
+		this.setPreis(preis);
+		this.setBehaeltnis(behaeltnis);
 		this.art = art;
-		this.sorten = sorten;
-		this.extras = extras;
+		this.setSorten(sorten);
+		this.setExtras(extras);
 	}
 
-	public String name() {
+	public String getName() {
 		return name;
 	}
 
-	public double preis() {
+	public double getPreis() {
 		return preis;
 	}
-
-	public String behaeltnis() {
-		return behaeltnis;
+	
+	public void setPreis(double preis){
+		this.preis = preis;
 	}
 
-	public String art() {
+	public String getBehaeltnis() {
+		return behaeltnis;
+	}
+	
+	public void setBehaeltnis(String behaeltnis){
+		this.behaeltnis = behaeltnis;
+	}
+
+	public String getArt() {
 		return art;
 	}
 
-	public String[] sorten() {
+	public String[] getSorten() {
 		return sorten.clone();
 	}
+	
+	public void setSorten (String[] sorten){
+		this.sorten = sorten;
+	}
 
-	public String[] extras() {
+	public String[] getExtras() {
 		return extras.clone();
+	}
+	
+	public void setExtras(String[] extras){
+		this.extras = extras;
 	}
 
 	public void vorbereiten() {
