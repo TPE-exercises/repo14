@@ -34,4 +34,10 @@ public class CrypterCaesaTest {
 		assertEquals("FOBCMRVEOCCOVEXQ", caesaCrypt.encrypt("verschluesselung"));
 		assertEquals("verschluesselung", caesaCrypt.decrypt("FOBCMRVEOCCOVEXQ"));
 	}
+
+	@Test(expected = GDIException.class)
+	public final void encryptIllegalCharacters() {
+		CrypterCaesa caesaCrypt = new CrypterCaesa(5);
+		caesaCrypt.decrypt("halloä");
+	}
 }

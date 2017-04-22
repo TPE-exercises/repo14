@@ -105,7 +105,7 @@ public class CrypterCaesa implements Crypter {
 	private boolean isLeagalString(String str) {
 
 		for (int i = 0; i < str.length(); ++i) {
-			if ((str.charAt(i) >= 'a' && str.charAt(i) <= 'Z') && (str.charAt(i) >= 'A' && str.charAt(i) <= 'Z')) {
+			if (!(str.charAt(i) >= 'a' && str.charAt(i) <= 'z') && !(str.charAt(i) >= 'A' && str.charAt(i) <= 'Z')) {
 				return false;
 			}
 		}
