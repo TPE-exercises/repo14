@@ -1,4 +1,4 @@
-package de.hsMannheim.informatik.ss17.tpe.group14.uebungsblatt2.aufgabe1;
+package de.hsMannheim.informatik.ss17.tpe.group14.uebungsblatt2.blatt1;
 
 import static gdi.MakeItSimple.*;
 
