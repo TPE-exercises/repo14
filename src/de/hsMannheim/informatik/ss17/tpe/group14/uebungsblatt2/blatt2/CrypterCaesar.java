@@ -2,12 +2,12 @@ package de.hsMannheim.informatik.ss17.tpe.group14.uebungsblatt2.blatt2;
 
 import static gdi.MakeItSimple.*;
 
-public class CrypterCaesa implements Crypter {
+public class CrypterCaesar implements Crypter {
 
 	private static final int ALPHABET_COUNT = 26;
 	private final int shift;
 
-	public CrypterCaesa(int shift) {
+	public CrypterCaesar(int shift) {
 
 		if (shift < 0) {
 			throw new GDIException("shift is negative");
@@ -111,11 +111,5 @@ public class CrypterCaesa implements Crypter {
 		}
 
 		return true;
-	}
-
-	public static void main(String[] args) {
-		CrypterCaesa caesaCrypt = new CrypterCaesa(10);
-
-		println(caesaCrypt.encrypt("verschluesselung"));
 	}
 }

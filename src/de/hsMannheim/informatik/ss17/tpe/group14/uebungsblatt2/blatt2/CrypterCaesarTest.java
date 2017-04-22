@@ -4,16 +4,16 @@ import static gdi.MakeItSimple.*;
 import static org.junit.Assert.*;
 import org.junit.*;
 
-public class CrypterCaesaTest {
+public class CrypterCaesarTest {
 
 	@Test(expected = GDIException.class)
 	public final void encryptAndDecrpytNegativeShift() {
-		new CrypterCaesa(-1);
+		new CrypterCaesar(-1);
 	}
 
 	@Test
 	public final void encryptAndDecrypt0Shift() {
-		CrypterCaesa caesaCrypt = new CrypterCaesa(0);
+		CrypterCaesar caesaCrypt = new CrypterCaesar(0);
 
 		assertEquals("HOCHSCHULE", caesaCrypt.encrypt("hochschule"));
 		assertEquals("hochschule", caesaCrypt.decrypt("HOCHSCHULE"));
@@ -21,7 +21,7 @@ public class CrypterCaesaTest {
 
 	@Test
 	public final void encryptAndDecrypt3Shift() {
-		CrypterCaesa caesaCrypt = new CrypterCaesa(3);
+		CrypterCaesar caesaCrypt = new CrypterCaesar(3);
 
 		assertEquals("FDHVDU", caesaCrypt.encrypt("caesar"));
 		assertEquals("caesar", caesaCrypt.decrypt("FDHVDU"));
@@ -29,7 +29,7 @@ public class CrypterCaesaTest {
 
 	@Test
 	public final void encryptAndDecrypt10Shift() {
-		CrypterCaesa caesaCrypt = new CrypterCaesa(10);
+		CrypterCaesar caesaCrypt = new CrypterCaesar(10);
 
 		assertEquals("FOBCMRVEOCCOVEXQ", caesaCrypt.encrypt("verschluesselung"));
 		assertEquals("verschluesselung", caesaCrypt.decrypt("FOBCMRVEOCCOVEXQ"));
@@ -37,7 +37,7 @@ public class CrypterCaesaTest {
 
 	@Test(expected = GDIException.class)
 	public final void encryptIllegalCharacters() {
-		CrypterCaesa caesaCrypt = new CrypterCaesa(5);
+		CrypterCaesar caesaCrypt = new CrypterCaesar(5);
 		caesaCrypt.decrypt("halloä");
 	}
 }
