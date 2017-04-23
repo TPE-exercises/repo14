@@ -1,4 +1,4 @@
-package de.hsMannheim.informatik.ss17.tpe.group14.uebungsblatt2.blatt2;
+package de.hsMannheim.informatik.ss17.tpe.group14.uebungsblatt2.blatt2.aufgabe1;
 
 import static gdi.MakeItSimple.*;
 
@@ -7,13 +7,22 @@ public class CrypterCaesar implements Crypter {
 	private static final int ALPHABET_COUNT = 26;
 	private final int shift;
 
+	/**
+	 * Constructor to set the shift for the encryption
+	 * 
+	 * @param shift
+	 *            value for the encryption
+	 * 
+	 * @throws GDIException
+	 *             if the shift is negative or bigger than the alphabet count
+	 */
 	public CrypterCaesar(int shift) {
 
 		if (shift < 0) {
 			throw new GDIException("shift is negative");
 		}
 
-		if (shift > 26) {
+		if (shift > ALPHABET_COUNT) {
 			throw new GDIException("shift over 26 ar not allowed");
 		}
 
@@ -72,12 +81,21 @@ public class CrypterCaesar implements Crypter {
 		return toLowerCase(decripted);
 	}
 
+	/**
+	 * Transform the given string to upper case and return the result
+	 * 
+	 * @param str
+	 *            to transform
+	 * @return the given string as upper case
+	 */
 	private String toUpperCase(String str) {
 
 		String upperCase = "";
 
+		// Change all letters in the alphabet to upper case
 		for (int i = 0; i < str.length(); ++i) {
 			if (str.charAt(i) >= 'a' && str.charAt(i) <= 'z') {
+				// Change the letter to upper case
 				upperCase += (char) (str.charAt(i) - 32);
 			} else {
 				upperCase += str.charAt(i);
@@ -87,6 +105,13 @@ public class CrypterCaesar implements Crypter {
 		return upperCase;
 	}
 
+	/**
+	 * Transform the given string to lower case and return the result
+	 * 
+	 * @param str
+	 *            to transform
+	 * @return the given string as lower case
+	 */
 	private String toLowerCase(String str) {
 
 		String lowerCase = "";
@@ -102,9 +127,17 @@ public class CrypterCaesar implements Crypter {
 		return lowerCase;
 	}
 
+	/**
+	 * Check if all letters in the given string are in the alphabet
+	 * 
+	 * @param str
+	 *            to check
+	 * @return true if all letters in the alphabet, else false
+	 */
 	private boolean isLeagalString(String str) {
 
 		for (int i = 0; i < str.length(); ++i) {
+			// Check if the latter is not in the alphabet
 			if (!(str.charAt(i) >= 'a' && str.charAt(i) <= 'z') && !(str.charAt(i) >= 'A' && str.charAt(i) <= 'Z')) {
 				return false;
 			}

@@ -1,4 +1,4 @@
-package de.hsMannheim.informatik.ss17.tpe.group14.uebungsblatt2.blatt2;
+package de.hsMannheim.informatik.ss17.tpe.group14.uebungsblatt2.blatt2.aufgabe1;
 
 import static gdi.MakeItSimple.*;
 import static org.junit.Assert.*;
@@ -8,7 +8,7 @@ public class CrypterReversTest {
 
 	@Test
 	public void test() {
-		CrypterRevers revers = new CrypterRevers();
+		CrypterReverse revers = new CrypterReverse();
 		
 		assertEquals("ollah", revers.encrypt("hallo"));
 		assertEquals("", revers.encrypt(""));

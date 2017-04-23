@@ -1,10 +1,10 @@
-package de.hsMannheim.informatik.ss17.tpe.group14.uebungsblatt2.blatt2;
+package de.hsMannheim.informatik.ss17.tpe.group14.uebungsblatt2.blatt2.aufgabe1;
 
 import static gdi.MakeItSimple.*;
 
 public class Decrypt {
 	public static void main(String[] args) {
-		CrypterRevers revers = new CrypterRevers();
+		CrypterReverse revers = new CrypterReverse();
 		CrypterCaesar caesar = new CrypterCaesar(5);
 		String decripted = caesar.decrypt(revers.decrypt("XHMSNYYXYJQQJS"));
 
