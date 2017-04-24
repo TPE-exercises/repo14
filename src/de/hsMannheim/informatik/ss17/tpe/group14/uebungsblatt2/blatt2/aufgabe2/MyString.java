@@ -4,14 +4,30 @@ public class MyString implements Comparable {
 
 	private String string;
 
+	/**
+	 * Constructor to set the string
+	 * 
+	 * @param string
+	 */
 	public MyString(String string) {
 		this.string = string;
 	}
 
+	/**
+	 * Set the given string
+	 * 
+	 * @param string
+	 *            to set
+	 */
 	public void setString(String string) {
 		this.string = string;
 	}
 
+	/**
+	 * Return the current string
+	 * 
+	 * @return the current string
+	 */
 	public String getString() {
 		return string;
 	}
