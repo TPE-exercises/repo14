@@ -23,7 +23,7 @@ public class CrypterCaesar implements Crypter {
 		}
 
 		if (shift > ALPHABET_COUNT) {
-			throw new GDIException("shift over 26 ar not allowed");
+			throw new GDIException("shift over 26 are not allowed");
 		}
 
 		this.shift = shift;

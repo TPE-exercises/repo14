@@ -4,40 +4,77 @@ import static gdi.MakeItSimple.*;
 
 public class SortArray {
 
-	private static InserationSort inserationSort = new InserationSort();
-	private static Shellsort shellSort = new Shellsort();
-
 	public static void main(String[] args) {
+		try {
+			Sort algorithm = selectSortAlgorithm();
 
-		println("1. values");
-		println("2. strings");
-		print("choice: ");
-		int datatypeChoice = readInt();
+			if (algorithm != null) {
+
+				println("1. values");
+				println("2. strings");
+				print("choice: ");
+				int datatypeChoice = readInt();
+				readLine();
+
+				if (datatypeChoice == 1) {
+					print("how many values: ");
+					int length = readInt();
+					readLine();
+					int[] array = new int[length];
+
+					for (int i = 0; i < array.length; ++i) {
+						print("value: ");
+						array[i] = readInt();
+						readLine();
+					}
+
+					sortArray(algorithm, toMyIntArray(array));
+
+				} else if (datatypeChoice == 2) {
+					print("how many strings: ");
+					int length = readInt();
+					readLine();
+					String[] array = new String[length];
+
+					for (int i = 0; i < array.length; ++i) {
+						print("string: ");
+						array[i] = readLine();
+					}
+
+					sortArray(algorithm, toMyString(array));
+
+				} else {
+					println("unknown input");
+				}
+			} else {
+				println("unknown sort algorithm");
+			}
+		} catch (Exception ex) {
+			println(ex.getMessage());
+			println("program exit");
+		}
+	}
+
+	/**
+	 * Ask the user for a Sort implementation and return it, or null if the user
+	 * input is not valid.
+	 * 
+	 * @return a Sort implementation or null
+	 */
+	private static Sort selectSortAlgorithm() {
+
+		println("1.) inserationSort");
+		println("2.) shellsort");
+
+		int sortAlgorithmChoice = readInt();
 		readLine();
 
-		if (datatypeChoice == 1) {
-			print("how many values: ");
-			int length = readInt();
-			readLine();
-			int[] array = new int[length];
-
-			for (int i = 0; i < array.length; ++i) {
-				print("value: ");
-				array[i] = readInt();
-				readLine();
-			}
-		} else if (datatypeChoice == 2) {
-			print("how many strings: ");
-			int length = readInt();
-			readLine();
-			String[] array = new String[length];
-
-			for (int i = 0; i < array.length; ++i) {
-				print("string: ");
-				array[i] = readLine();
-			}
+		if (sortAlgorithmChoice == 1) {
+			return new InserationSort();
+		} else if (sortAlgorithmChoice == 2) {
+			return new Shellsort();
 		} else {
-			println("unknown input");
+			return null;
 		}
 	}
 

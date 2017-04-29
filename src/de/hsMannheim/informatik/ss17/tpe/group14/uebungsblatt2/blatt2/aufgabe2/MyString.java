@@ -35,7 +35,7 @@ public class MyString implements Comparable {
 	@Override
 	public int compareTo(Object o) {
 
-		return string.compareTo((String) o);
+		return string.compareTo((String) o.toString());
 	}
 
 	@Override
