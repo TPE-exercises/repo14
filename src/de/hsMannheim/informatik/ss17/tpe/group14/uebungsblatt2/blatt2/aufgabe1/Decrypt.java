@@ -4,10 +4,14 @@ import static gdi.MakeItSimple.*;
 
 public class Decrypt {
 	public static void main(String[] args) {
-		CrypterReverse revers = new CrypterReverse();
-		CrypterCaesar caesar = new CrypterCaesar(5);
-		String decripted = caesar.decrypt(revers.decrypt("XHMSNYYXYJQQJS"));
+		try {
+			CrypterReverse revers = new CrypterReverse();
+			CrypterCaesar caesar = new CrypterCaesar(5);
+			String decripted = caesar.decrypt(revers.decrypt("XHMSNYYXYJQQJS"));
 
-		println(revers.decrypt(decripted));
+			println(revers.decrypt(decripted));
+		} catch (Exception ex) {
+			println(ex.getMessage());
+		}
 	}
 }

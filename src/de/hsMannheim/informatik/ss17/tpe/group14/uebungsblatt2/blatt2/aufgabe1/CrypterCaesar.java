@@ -16,7 +16,7 @@ public class CrypterCaesar implements Crypter {
 	 * @throws GDIException
 	 *             if the shift is negative or bigger than the alphabet count
 	 */
-	public CrypterCaesar(int shift) {
+	public CrypterCaesar(int shift) throws GDIException {
 
 		if (shift < 0) {
 			throw new GDIException("shift is negative");
@@ -30,7 +30,7 @@ public class CrypterCaesar implements Crypter {
 	}
 
 	@Override
-	public String encrypt(String message) {
+	public String encrypt(String message) throws GDIException {
 
 		if (!isLeagalString(message)) {
 			throw new GDIException("Not supported characters in the given string");
@@ -56,7 +56,7 @@ public class CrypterCaesar implements Crypter {
 	}
 
 	@Override
-	public String decrypt(String cypherText) {
+	public String decrypt(String cypherText) throws GDIException {
 
 		if (!isLeagalString(cypherText)) {
 			throw new GDIException("The given string is not a caesa encryption");
