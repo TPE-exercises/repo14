@@ -1,0 +1,7 @@
+Textliche Erläuterung zu Aufgabe Eisdiele Teil 2
+Es werden keine zusätzlichen Klassen/ Methoden zu der Variante in Aufgabe 1 benötigt
+Einge er Mehtoden können in der abstrakten Klasse schon von vorne rein implementiert werden
+da man dadurch Codedopplung vermeidet. Da dieser in allen Klassen gleich aussenehn würde. Das ist vorallem 
+in der MyEis Klasse der Fall.
+Die Vorteile liegen darin, das leicht regionale Unterschiede bei Sprache und den Eissorten implementiert werden
+können. Es keine unnötigen Codedopplungen gibt, da es eine klare Vererbngshierarchie gibt. 
