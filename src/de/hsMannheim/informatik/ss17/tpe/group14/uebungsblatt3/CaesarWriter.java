@@ -11,22 +11,22 @@ public class CaesarWriter extends FilterWriter {
 		super(out);
 		crypterCaesar = new CrypterCaesar(shift);
 	}
-	
+
 	@Override
 	public void write(int c) throws IOException {
-		
-		super.write(String.valueOf((char) c), 0, 1);
+
+		write(String.valueOf((char) c), 0, 1);
 	}
-	
+
 	@Override
 	public void write(char[] cbuf, int off, int len) throws IOException {
-		
-		super.write(new String(cbuf), off, len);
+
+		write(new String(cbuf), off, len);
 	}
-	
+
 	@Override
 	public void write(String str, int off, int len) throws IOException {
-		
-		super.write(crypterCaesar.encrypt(str), off, len);
+
+		super.write(crypterCaesar.encrypt(str.substring(off, len)), off, len);
 	}
 }
