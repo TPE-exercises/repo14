@@ -5,6 +5,8 @@ import java.io.*;
 public class CaesarReader extends FilterReader {
 
 	private final CrypterCaesar crypterCaeser;
+	private String buffer = "";
+	private int pos = 0;
 
 	public CaesarReader(Reader in, int shift) {
 
@@ -15,7 +17,13 @@ public class CaesarReader extends FilterReader {
 	@Override
 	public int read() throws IOException {
 
-		String decrypted = crypterCaeser.decrypt(String.valueOf((char) super.read()));
+		int ret = super.read();
+		
+		if(ret == -1) {
+			return ret;
+		}
+		
+		String decrypted = crypterCaeser.decrypt(String.valueOf((char) ret));
 
 		return decrypted.charAt(0);
 	}
@@ -23,18 +31,24 @@ public class CaesarReader extends FilterReader {
 	@Override
 	public int read(char[] cbuf, int off, int len) throws IOException {
 
-		int ret = super.read(cbuf, off, len);
-
-		// Decrypt the character between offset and end of buffer
-		String buffer = crypterCaeser.decrypt(new String(cbuf, off, len));
-
-		// Change the character between offset and end of buffer with the
-		// decrypted characters
-		int i = off;
-		for (char c : buffer.toCharArray()) {
-			cbuf[i++] = c;
+		if (pos == buffer.length()) {
+			// No leftovers from a previous call available, need to actually read
+			// more
+			int result = in.read(cbuf, off, len);
+			if (result <= 0) {
+				return -1;
+			}
+			buffer = new String(cbuf, off, result);
+			buffer = crypterCaeser.decrypt((buffer));
+			pos = 0;
+			
 		}
 
-		return ret;
+		// Return as much as we have available, but not more than len
+		int available = Math.min(buffer.length() - pos, len);
+		buffer.getChars(pos, pos + available, cbuf, off);
+		pos += available;
+
+		return available;
 	}
 }

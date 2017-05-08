@@ -27,6 +27,6 @@ public class CaesarWriter extends FilterWriter {
 	@Override
 	public void write(String str, int off, int len) throws IOException {
 
-		super.write(crypterCaesar.encrypt(str.substring(off, len)), off, len);
+		super.write(crypterCaesar.encrypt(str), off, len);
 	}
 }
