@@ -10,6 +10,12 @@ public class CaesarFileEncryptor implements IFileEncryptor {
 		ENCRYPT, DECRYPT
 	};
 
+	/**
+	 * Constructor to set the shift of the caesar encryption/decryption
+	 * 
+	 * @param shift
+	 *            to encrypt/decrypt
+	 */
 	public CaesarFileEncryptor(int shift) {
 
 		this.shift = shift;
@@ -22,12 +28,14 @@ public class CaesarFileEncryptor implements IFileEncryptor {
 			throw new IllegalArgumentException("Given file is not a directory");
 		}
 
+		// create the encrypted directory
 		File encryptedDirectory = createDirectory(sourceDirectory.getAbsolutePath() + "_encrypted");
 
 		if (encryptedDirectory == null) {
 			throw new IOException("Can not create a encrypted directory");
 		}
 
+		// encrypt the directory recursively
 		copyDirectory(sourceDirectory, encryptedDirectory, Manipulation.ENCRYPT);
 
 		return encryptedDirectory;
@@ -39,16 +47,28 @@ public class CaesarFileEncryptor implements IFileEncryptor {
 		if (!sourceDirectory.isDirectory()) {
 			throw new IllegalArgumentException("Given file is not a directory");
 		}
-
+		
+		// create the decrypted directory
 		String dir = sourceDirectory.getAbsolutePath() + "_decrypted";
 
 		File decryptedDirecory = createDirectory(dir);
-		
+
+		// decrypt the directory recursively
 		copyDirectory(sourceDirectory, decryptedDirecory, Manipulation.DECRYPT);
 
 		return decryptedDirecory;
 	}
 
+	/**
+	 * Copy the given directory to the given location with manipulation
+	 * 
+	 * @param directory
+	 *            to copy
+	 * @param encryptedDirectory
+	 *            copy location
+	 * @param manipulation
+	 *            to encrypt or decrypt
+	 */
 	private void copyDirectory(File directory, File encryptedDirectory, Manipulation manipulation) {
 
 		// encrypt all files of the directory
@@ -84,6 +104,18 @@ public class CaesarFileEncryptor implements IFileEncryptor {
 		}
 	}
 
+	/**
+	 * Copy the given file to the given location with manipulation
+	 * 
+	 * @param input
+	 *            to copy
+	 * @param output
+	 *            copy location
+	 * @param manipulation
+	 *            to encrypt/decrypt
+	 * @throws IOException
+	 *             if the copy fails
+	 */
 	private void copyFile(File input, File output, Manipulation manipulation) throws IOException {
 
 		BufferedReader reader;
@@ -92,11 +124,12 @@ public class CaesarFileEncryptor implements IFileEncryptor {
 		if (manipulation == Manipulation.ENCRYPT) {
 			reader = new BufferedReader(new FileReader(input));
 			writer = new PrintWriter(new CaesarWriter(new FileWriter(output), shift));
-		} else {
+		} else { // decrypt
 			reader = new BufferedReader(new CaesarReader(new FileReader(input), shift));
 			writer = new PrintWriter(new FileWriter(output));
 		}
 
+		// copy the file to the output file
 		for (String buffer; (buffer = reader.readLine()) != null;) {
 			writer.println(buffer);
 		}
@@ -105,15 +138,25 @@ public class CaesarFileEncryptor implements IFileEncryptor {
 		writer.close();
 	}
 
+	/**
+	 * Create a directory on the given location and add a number to the
+	 * directory if it already exists
+	 * 
+	 * @param fullPath
+	 *            of the directory
+	 * @return the new directory or null if the directory can not be created
+	 * @throws IOException
+	 *             if the creation fails
+	 */
 	private File createDirectory(String fullPath) throws IOException {
 
 		File directory = new File(fullPath);
-		
+
 		if (!directory.exists() && directory.mkdir()) {
 			return directory;
 		}
-		
 
+		// add a number to the directory
 		for (int i = 1; i < Integer.MAX_VALUE; ++i) {
 			directory = new File(fullPath + "(" + i + ")");
 
