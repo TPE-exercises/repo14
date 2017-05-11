@@ -1,7 +1,8 @@
 package de.hsMannheim.informatik.ss17.tpe.group14.uebungsblatt3.aufgabe1;
 
 import static gdi.MakeItSimple.*;
-import de.hsMannheim.informatik.ss17.tpe.group14.uebungsblatt3.myutil.Exceptions.*;
+
+import de.hsMannheim.informatik.ss17.tpe.group14.uebungsblatt3.myutil.*;
 import de.hsMannheim.informatik.ss17.tpe.group14.uebungsblatt3.myutil.Queue.*;
 import de.hsMannheim.informatik.ss17.tpe.group14.uebungsblatt3.myutil.Stack.*;
 
@@ -172,7 +173,7 @@ public class Menu {
 				}	
 				break;
 			case 4:
-				stack = stack.empty();
+				stack = (Stack) stack.empty();
 				println("new empty stack");
 				break;
 			case 5:
@@ -238,7 +239,7 @@ public class Menu {
 			
 			break;
 		case 4:
-			queue = queue.empty();
+			queue = (Queue) queue.empty();
 			println("new empty queue");
 			break;
 		case 5:
