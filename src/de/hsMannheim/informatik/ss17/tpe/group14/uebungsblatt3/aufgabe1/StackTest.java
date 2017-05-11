@@ -14,17 +14,22 @@ public class StackTest {
 	public final void push() throws OverflowException{
 		// Array Implementation
 		try{
-			assertEquals(true, stackA.push("Test"));
-			assertEquals(true, stackA.push("Tes"));
-			assertEquals(true, stackA.push("T"));
-			assertEquals(true, stackA.push("e"));
-			assertEquals(true, stackA.push("s"));
-//			assertFalse(stackA.push(null));
+			assertEquals(true, stackA.push("A"));
+			assertEquals(true, stackA.push("B"));
+			assertFalse(stackA.push(null));
+			assertEquals(true, stackA.push("C"));
+			assertEquals(true, stackA.push("D"));
+			assertEquals(4, stackA.size());
+			assertEquals(true, stackA.push("E"));
+			assertEquals(true, stackA.push("F"));
+			assertEquals(6, stackA.size());
+			assertEquals(false, stackA.push("G"));
+			assertTrue(stackA.toString().equals("x, s, e, T, Tes, Test"));
 		
 		} catch (OverflowException oe){
 			assertTrue(true);
 		}
-		stackA.empty();
+		stackA = (Stack) stackA.empty();
 		try{
 			assertEquals(true, stackA.push(new Integer(4)));
 			assertEquals(true, stackA.push(new Integer(4)));
@@ -37,11 +42,13 @@ public class StackTest {
 		
 		// LinkedList Implementation
 		try{
-			assertEquals(true, stackLL.push("Test"));
-			assertEquals(true, stackLL.push("Test"));
-			assertEquals(true, stackLL.push("T"));
-			assertEquals(true, stackLL.push("e"));
-			assertEquals(true, stackLL.push("s"));
+			assertEquals(true, stackLL.push("A"));
+			assertEquals(true, stackLL.push("B"));
+			assertEquals(true, stackLL.push("C"));
+			assertEquals(true, stackLL.push("D"));
+			assertEquals(true, stackLL.push("E"));
+			assertEquals(true, stackLL.push("F"));
+			assertEquals(true, stackLL.push("G"));
 			
 		} catch (OverflowException oe){
 			assertTrue(true);
@@ -62,7 +69,7 @@ public class StackTest {
 	@Test
 	public final void pop() throws UnderflowException , OverflowException{
 		// Array Implementation
-		stackA = (Stack)stackA.empty();
+		stackA.empty();
 		try{
 			stackA.push("T");
 			stackA.push("e");
@@ -104,6 +111,7 @@ public class StackTest {
 		Stack stackA = new StackArray(3);
 		Stack stackLL = new StackLinkedList(3);
 		
+		//Array Implementation
 		try{
 			stackA.push(new Integer(3));
 			assertEquals(3, stackA.top());
@@ -117,6 +125,19 @@ public class StackTest {
 			assertTrue(true);
 		}
 		
+		//Linked List Implementation
+		try{
+			stackLL.push(new Integer(3));
+			assertEquals(3, stackLL.top());
+			stackLL.push(new Integer(12));
+			assertEquals(12, stackLL.top());
+			stackLL.pop();
+			assertEquals(3, stackLL.top());
+			stackLL.pop();
+			stackLL.top();
+		} catch(UnderflowException oe){
+			assertTrue(true);
+		}
 		
 	}
 	
@@ -158,8 +179,8 @@ public class StackTest {
 	
 	@Test
 	public final void size() throws UnderflowException, OverflowException{
-		stackLL = (Stack) stackLL.empty();
-		stackA = (Stack) stackA.empty();
+		stackLL.empty();
+		stackA.empty();
 		
 		// Array Implementation
 		stackA.push(new Integer (5));
@@ -169,7 +190,7 @@ public class StackTest {
 		stackA.pop();
 		assertEquals(2, stackA.size());
 		
-		stackA = (Stack)stackA.empty();
+		stackA = (Stack) stackA.empty();
 		assertTrue(stackA.isEmpty());
 		stackA.push("Test");
 		stackA.push("Affe");

@@ -15,6 +15,7 @@ public class StackLinkedList implements Stack, ADT {
 		this.stack = new LinkedList();
 	}
 
+	// standard initialize with 10
 	public StackLinkedList() {
 		this.size = 10;
 		this.stack = new LinkedList();
@@ -24,7 +25,7 @@ public class StackLinkedList implements Stack, ADT {
 	public boolean push(Object o) throws OverflowException {
 		if(o != null){
 			try {
-				if (size() >= size - 1) {
+				if (size() >= size) {
 					throw new OverflowException(o.toString());
 				} else {
 					stack.addFirst(o);
@@ -70,7 +71,7 @@ public class StackLinkedList implements Stack, ADT {
 	}
 
 	@Override
-	public ADT empty() {
+	public Stack empty() {
 		return new StackLinkedList();
 	}
 

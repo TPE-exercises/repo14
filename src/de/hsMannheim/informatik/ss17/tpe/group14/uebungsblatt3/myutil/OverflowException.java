@@ -13,9 +13,9 @@ public class OverflowException extends Throwable{
 //		this.printStackTrace();
 	}
 	
-	public OverflowException(){
-		this.getMessage();
-		this.printStackTrace();
-	}
+//	public OverflowException(){
+//		this.getMessage();
+//		this.printStackTrace();
+//	}
 
 }

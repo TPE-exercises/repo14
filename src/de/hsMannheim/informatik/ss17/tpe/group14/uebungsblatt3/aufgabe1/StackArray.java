@@ -1,6 +1,7 @@
 package de.hsMannheim.informatik.ss17.tpe.group14.uebungsblatt3.aufgabe1;
 
 import de.hsMannheim.informatik.ss17.tpe.group14.uebungsblatt3.myutil.*;
+import static gdi.MakeItSimple.*;
 
 public class StackArray implements Stack, ADT {
 
@@ -21,7 +22,7 @@ public class StackArray implements Stack, ADT {
 	public boolean push(Object o) throws OverflowException {
 		if(o != null){
 			try {
-				if (size() >= stack.length -1) {
+				if (size() >= stack.length ) {
 					throw new OverflowException(o.toString()) ;
 				} else {
 					stack[num] = o;
@@ -30,12 +31,13 @@ public class StackArray implements Stack, ADT {
 				}
 			} catch (OverflowException oe) {
 				if (flag == 1) {
-					num++;
-					stack[stack.length-1] = o;
 					Object[] copiedStack = new Object[size() * 2];
-					for (int i = 0; i < this.getStack().length; i++) {
-						copiedStack[i] = stack[i];
+					for (int i = 0; i < this.stack.length; i++) {
+							copiedStack[i] = stack[i];
 					}
+					
+					copiedStack[num] = o;
+					num++;
 					this.setStack(copiedStack);
 					flag++;
 					return true;
@@ -83,11 +85,53 @@ public class StackArray implements Stack, ADT {
 		return this.num;
 	}
 
+	/**
+	 * Get the stack array
+	 * 
+	 * @return stack array
+	 */
 	protected Object[] getStack() {
 		return this.stack;
 	}
 
+	/**
+	 * Set an new stack array
+	 * 
+	 * @param copiedStack
+	 *            the new queue array
+	 */
 	protected void setStack(Object[] stack) {
 		this.stack = stack;
 	}
+	
+	public String toString(){
+		String s = "";
+		for(int i = this.size(); i >= 0; i--){
+			if(stack[i] != null)
+			s = s+ stack[i].toString() + ", ";
+		}
+		return s;
+		
+	}
+	
+	public static void main(String[] args){
+		Stack stack = new StackArray(3);
+		try{
+			stack.push(1);
+			stack.push(7);
+			stack.push(5);
+			stack.push(9);
+			stack.push(6);
+			stack.push(8);
+			stack.push(0);
+		} catch(OverflowException oe){
+			println( oe);
+		}
+		
+		
+		println(stack.toString());
+		
+		
+	}
+	
 }

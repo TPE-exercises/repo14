@@ -3,7 +3,7 @@ package de.hsMannheim.informatik.ss17.tpe.group14.uebungsblatt3.aufgabe1;
 import de.hsMannheim.informatik.ss17.tpe.group14.uebungsblatt3.myutil.*;
 import de.hsMannheim.informatik.ss17.tpe.group14.uebungsblatt3.myutil.LinkedList.*;
 
-public class QueueLinkedList implements Queue {
+public class QueueLinkedList implements Queue, ADT {
 
 	protected LinkedList queue;
 	protected int size;
@@ -12,32 +12,40 @@ public class QueueLinkedList implements Queue {
 
 	public QueueLinkedList(int size) {
 		this.size = size;
-		queue = new LinkedList();
+		this.queue = new LinkedList();
 	}
 
+	// standard initialize with 10
 	public QueueLinkedList() {
-		new QueueLinkedList(10);
+		this.size = 10;
 	}
 
 	@Override
 	public boolean enter(Object o) throws OverflowException {
-		try {
-			if (size() >= size - 1) {
-				throw new OverflowException(o.toString());
-			} else {
-				queue.addLast(o);
-				return true;
+		if (o != null) {
+			try {
+				if (size() >= size) {
+					throw new OverflowException(o.toString());
+				} else {
+					queue.addLast(o);
+					num++;
+					return true;
+				}
+			} catch (OverflowException oe) {
+				if (flag == 1) {
+					this.size = size * 2;
+					queue.addLast(o);
+					num++;
+					flag++;
+					return true;
+				} else {
+					throw oe;
+				}
 			}
-		} catch (OverflowException oe) {
-			if (flag == 1) {
-				this.size = size * 2;
-				queue.addLast(o);
-				flag++;
-				return true;
-			} else {
-				throw oe;
-			}
+		} else {
+			return false;
 		}
+
 	}
 
 	@Override
@@ -54,10 +62,10 @@ public class QueueLinkedList implements Queue {
 
 	@Override
 	public Object front() throws UnderflowException {
-		if (this.isEmpty()) {
-			throw new UnderflowException();
+		if (this.queue.getFirst() != null) {
+			return this.queue.getFirst();
 		} else {
-			return queue.getFirst();
+			throw new UnderflowException();
 		}
 	}
 
@@ -68,16 +76,12 @@ public class QueueLinkedList implements Queue {
 
 	@Override
 	public boolean isEmpty() {
-		if (queue.getFirst() == null) {
-			return true;
-		} else {
-			return false;
-		}
+		return this.queue.isEmpty();
 	}
 
 	@Override
 	public int size() {
-		return num;
+		return this.num;
 	}
 
 }

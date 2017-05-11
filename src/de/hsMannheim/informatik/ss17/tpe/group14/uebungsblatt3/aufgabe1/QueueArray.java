@@ -19,27 +19,34 @@ public class QueueArray implements Queue, ADT {
 
 	@Override
 	public boolean enter(Object o) throws OverflowException {
-		try {
-			if (size() >= queue.length - 2) {
-				throw new OverflowException(o.toString());
-			} else {
-				queue[num++] = o;
-				return true;
-			}
-		} catch (OverflowException oe) {
-			if (flag == 1) {
-				queue[num + 1] = o;
-				Object[] copiedQueue = new Object[size() * 2];
-				for (int i = 0; i < this.getQueue().length; i++) {
-					copiedQueue[i] = queue[i];
+		if(o != null){
+			try {
+				if (size() >= queue.length - 1) {
+					throw new OverflowException(o.toString());
+				} else {
+					queue[num] = o;
+					num++;
+					return true;
 				}
-				this.setQueue(copiedQueue);
-				flag++;
-				return true;
-			} else {
-				throw oe;
+			} catch (OverflowException oe) {
+				if (flag == 1) {
+					Object[] copiedQueue = new Object[((size()) * 2)+1];
+					for (int i = 0; i < this.queue.length; i++) {
+						copiedQueue[i] = queue[i];
+					}
+					copiedQueue[num] = o;
+					num++;
+					this.setQueue(copiedQueue);
+					flag++;
+					return true;
+				} else {
+					throw oe;
+				}
 			}
+		} else{
+			return false;
 		}
+		
 	}
 
 	@Override
@@ -61,7 +68,7 @@ public class QueueArray implements Queue, ADT {
 		if (this.isEmpty()) {
 			throw new UnderflowException();
 		} else {
-			return queue[0];
+			return this.queue[0];
 		}
 	}
 
@@ -72,12 +79,12 @@ public class QueueArray implements Queue, ADT {
 
 	@Override
 	public boolean isEmpty() {
-		return queue[0] == null;
+		return this.size() == 0;
 	}
 
 	@Override
 	public int size() {
-		return num;
+		return this.num;
 	}
 
 	/**
