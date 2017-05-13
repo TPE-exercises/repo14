@@ -26,7 +26,7 @@ public class StackLinkedList implements Stack, ADT {
 		if(o != null){
 			try {
 				if (size() >= size) {
-					throw new OverflowException(o.toString());
+					throw new OverflowException(o);
 				} else {
 					stack.addFirst(o);
 					num++;

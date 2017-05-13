@@ -18,6 +18,7 @@ public class QueueLinkedList implements Queue, ADT {
 	// standard initialize with 10
 	public QueueLinkedList() {
 		this.size = 10;
+		this.queue = new LinkedList();
 	}
 
 	@Override
@@ -25,9 +26,9 @@ public class QueueLinkedList implements Queue, ADT {
 		if (o != null) {
 			try {
 				if (size() >= size) {
-					throw new OverflowException(o.toString());
+					throw new OverflowException(o);
 				} else {
-					queue.addLast(o);
+					this.queue.addLast(o);
 					num++;
 					return true;
 				}
@@ -62,7 +63,7 @@ public class QueueLinkedList implements Queue, ADT {
 
 	@Override
 	public Object front() throws UnderflowException {
-		if (this.queue.getFirst() != null) {
+		if (!this.isEmpty()) {
 			return this.queue.getFirst();
 		} else {
 			throw new UnderflowException();
@@ -76,12 +77,29 @@ public class QueueLinkedList implements Queue, ADT {
 
 	@Override
 	public boolean isEmpty() {
-		return this.queue.isEmpty();
+		return num == 0;
 	}
 
 	@Override
 	public int size() {
 		return this.num;
 	}
-
+	
+	
+	public static void main(String[] args) {
+		Queue queueLL = new QueueLinkedList(3);
+		try{
+			queueLL.enter(new Integer(1));
+			queueLL.enter(new Integer(7));
+			queueLL.enter(new Integer(3));
+			queueLL.enter(new Integer(5));
+			System.out.println(queueLL.front());
+			
+		} catch(OverflowException oe ){
+			
+		}catch(UnderflowException ue){
+			
+		}
+		
+	}
 }

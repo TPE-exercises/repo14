@@ -6,13 +6,5 @@ public class UnderflowException extends Throwable{
 	
 	public UnderflowException() {
 		println("Underflow");
-//		this.getMessage();
-//		this.printStackTrace();
 	}
-	
-	public UnderflowException(String s){
-		this.getMessage();
-		this.printStackTrace();
-	}
-
 }

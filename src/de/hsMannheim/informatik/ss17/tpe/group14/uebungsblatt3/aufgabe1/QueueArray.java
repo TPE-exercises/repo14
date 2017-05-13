@@ -22,7 +22,7 @@ public class QueueArray implements Queue, ADT {
 		if(o != null){
 			try {
 				if (size() >= queue.length - 1) {
-					throw new OverflowException(o.toString());
+					throw new OverflowException(o);
 				} else {
 					queue[num] = o;
 					num++;

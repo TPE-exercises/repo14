@@ -6,16 +6,12 @@ public class OverflowException extends Throwable{
 	
 	protected String lastInsert;
 	
-	public OverflowException(String s){
-//		lastInsert = s;
-		println("Overflow: " + s);
-//		this.getMessage();
-//		this.printStackTrace();
+	public OverflowException(Object o){
+		println("Overflow: " + o);
 	}
 	
-//	public OverflowException(){
-//		this.getMessage();
-//		this.printStackTrace();
-//	}
+	public OverflowException(String s){
+		println(s);
+	}
 
 }

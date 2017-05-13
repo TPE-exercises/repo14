@@ -23,7 +23,7 @@ public class StackArray implements Stack, ADT {
 		if(o != null){
 			try {
 				if (size() >= stack.length ) {
-					throw new OverflowException(o.toString()) ;
+					throw new OverflowException(o) ;
 				} else {
 					stack[num] = o;
 					num++;

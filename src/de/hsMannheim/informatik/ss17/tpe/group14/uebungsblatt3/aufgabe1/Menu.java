@@ -47,8 +47,7 @@ public class Menu {
 
 	private static void implementationMenu(String adt) {
 		String dataType = dataType();
-
-		println("Implementation Menü");
+		readLine();
 		println("A \t Array Implementation");
 		println("L \t Linked List Implementation");
 		char temp = readChar();
@@ -159,7 +158,7 @@ public class Menu {
 					println(stack.push((Integer) i));
 				}
 			} catch (OverflowException oe) {
-				println(oe);
+				 println(oe);
 			}
 
 			break;
@@ -189,6 +188,7 @@ public class Menu {
 			println(stack.size());
 			break;
 		case 10:
+			readLine();
 			implementationMenu("S");
 			break;
 		default:
@@ -246,11 +246,10 @@ public class Menu {
 			} catch (UnderflowException ue) {
 				println(ue);
 			}
-
 			break;
 		case 4:
 			queue = (Queue) queue.empty();
-			println("new empty queue");
+			println("new empty stack");
 			break;
 		case 5:
 			println(queue.isEmpty());
@@ -259,7 +258,8 @@ public class Menu {
 			println(queue.size());
 			break;
 		case 10:
-			implementationMenu("Q");
+			readLine();
+			implementationMenu("S");
 			break;
 		default:
 			break;
