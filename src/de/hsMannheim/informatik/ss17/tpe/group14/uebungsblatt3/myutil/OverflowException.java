@@ -7,7 +7,9 @@ public class OverflowException extends Throwable{
 	protected String lastInsert;
 	
 	public OverflowException(Object o){
+		super("Overflow ");
 		println("Overflow: " + o);
+		this.getStackTrace();
 	}
 	
 	public OverflowException(String s){

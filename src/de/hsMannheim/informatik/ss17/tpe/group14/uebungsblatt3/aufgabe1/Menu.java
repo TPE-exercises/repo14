@@ -40,6 +40,7 @@ public class Menu {
 		case 's':
 			return "S";
 		default:
+			dataType();
 			return "2.try again!";
 		}
 
@@ -72,7 +73,7 @@ public class Menu {
 					implementationMenu(adt);
 					break;
 				}
-			} else if (i != 1 && i != 2) {
+			} else if ((i < 1 || i > 2 ) || (temp != 'A' && temp!='L' && temp!= 'a' && temp != 'l')) {
 				println("Fail! Try again!");
 				printMenu();
 			} else {
@@ -110,7 +111,7 @@ public class Menu {
 					implementationMenu(adt);
 					break;
 				}
-			} else if (i != 1 && i != 2) {
+			} else if ((i < 1 || i > 2 ) || (temp != 'A' && temp!='L' && temp!= 'a' && temp != 'l')) {
 				println("Fail! Try again!");
 				printMenu();
 			} else {
@@ -149,16 +150,19 @@ public class Menu {
 		case 1:
 			try {
 				if (dataType.equals("S")) {
+					println("value: ");
 					String s = "";
 					readLine();
 					s = readLine();
 					println(stack.push(s));
 				} else if (dataType.equals("I")) {
+					println("value: ");
 					int i = readInt();
 					println(stack.push((Integer) i));
 				}
 			} catch (OverflowException oe) {
 				 println(oe);
+				 oe.getStackTrace();
 			}
 
 			break;
@@ -167,14 +171,16 @@ public class Menu {
 				println(stack.pop().toString());
 			} catch (UnderflowException ue) {
 				println(ue);
+				ue.getStackTrace();
 			}
 
 			break;
 		case 3:
 			try {
-				println(stack.top().toString());
+				println("top: " + stack.top().toString());
 			} catch (UnderflowException ue) {
 				println(ue);
+				ue.getStackTrace();
 			}
 			break;
 		case 4:
@@ -185,7 +191,7 @@ public class Menu {
 			println(stack.isEmpty());
 			break;
 		case 6:
-			println(stack.size());
+			println("size: " + stack.size());
 			break;
 		case 10:
 			readLine();
@@ -219,16 +225,19 @@ public class Menu {
 		case 1:
 			try {
 				if (dataType.equals("S")) {
+					println("value: ");
 					String s = "";
 					readLine();
 					s = readLine();
 					println(queue.enter(s));
 				} else if (dataType.equals("I")) {
+					println("value: ");
 					int i = readInt();
 					println(queue.enter((Integer) i));
 				}
 			} catch (OverflowException oe) {
 				println(oe);
+				oe.getStackTrace();
 			}
 
 			break;
@@ -237,14 +246,16 @@ public class Menu {
 				println(queue.leave().toString());
 			} catch (UnderflowException ue) {
 				println(ue);
+				ue.getStackTrace();
 			}
 
 			break;
 		case 3:
 			try {
-				println(queue.front().toString());
+				println("front: " + queue.front().toString());
 			} catch (UnderflowException ue) {
 				println(ue);
+				ue.getStackTrace();
 			}
 			break;
 		case 4:
@@ -255,7 +266,7 @@ public class Menu {
 			println(queue.isEmpty());
 			break;
 		case 6:
-			println(queue.size());
+			println("size: " + queue.size());
 			break;
 		case 10:
 			readLine();

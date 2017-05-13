@@ -1,0 +1,6 @@
+Beim Beispiel ist gewährleistet, dass keine Division durch 0 durchgeführt werden darf, da die Berechnung
+des Bruches in einem geschützten try Block stattfindet. Somit wird falls eine Division durch 0 auftritt auf 
+jeden Fall mittels eines Fließtextes auf der Konsole ausgegeben was der Fehler war, was dem Benutzer für weitere
+Schritte hilft. Es kommt nicht zum Programmabsturz sondern die kann Eingabe wiederholt bzw. berichtigt 
+werden.
+Eine normale Division durch zwei Zahlen ohne die Null im Nenner funktioniert ganz normal. 

@@ -104,34 +104,4 @@ public class StackArray implements Stack, ADT {
 		this.stack = stack;
 	}
 	
-	public String toString(){
-		String s = "";
-		for(int i = this.size(); i >= 0; i--){
-			if(stack[i] != null)
-			s = s+ stack[i].toString() + ", ";
-		}
-		return s;
-		
-	}
-	
-	public static void main(String[] args){
-		Stack stack = new StackArray(3);
-		try{
-			stack.push(1);
-			stack.push(7);
-			stack.push(5);
-			stack.push(9);
-			stack.push(6);
-			stack.push(8);
-			stack.push(0);
-		} catch(OverflowException oe){
-			println( oe);
-		}
-		
-		
-		println(stack.toString());
-		
-		
-	}
-	
 }

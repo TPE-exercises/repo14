@@ -24,7 +24,6 @@ public class StackTest {
 			assertEquals(true, stackA.push("F"));
 			assertEquals(6, stackA.size());
 			assertEquals(false, stackA.push("G"));
-			assertTrue(stackA.toString().equals("x, s, e, T, Tes, Test"));
 		
 		} catch (OverflowException oe){
 			assertTrue(true);

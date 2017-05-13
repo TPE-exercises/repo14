@@ -85,21 +85,4 @@ public class QueueLinkedList implements Queue, ADT {
 		return this.num;
 	}
 	
-	
-	public static void main(String[] args) {
-		Queue queueLL = new QueueLinkedList(3);
-		try{
-			queueLL.enter(new Integer(1));
-			queueLL.enter(new Integer(7));
-			queueLL.enter(new Integer(3));
-			queueLL.enter(new Integer(5));
-			System.out.println(queueLL.front());
-			
-		} catch(OverflowException oe ){
-			
-		}catch(UnderflowException ue){
-			
-		}
-		
-	}
 }
