@@ -7,7 +7,7 @@ public class QueueLinkedList implements Queue, ADT {
 
 	protected LinkedList queue;
 	protected int size;
-	protected int num = 0;
+	protected int num = 0; // number of elements in stack
 	protected int flag = 1;
 
 	public QueueLinkedList(int size) {
@@ -15,14 +15,16 @@ public class QueueLinkedList implements Queue, ADT {
 		this.queue = new LinkedList();
 	}
 
-	// standard initialize with 10
+	
 	public QueueLinkedList() {
+		// standard initialize with 10
 		this.size = 10;
 		this.queue = new LinkedList();
 	}
 
 	@Override
 	public boolean enter(Object o) throws OverflowException {
+		// if the insertion object equals null it is not necessary to do anything
 		if (o != null) {
 			try {
 				if (size() >= size) {
@@ -33,7 +35,9 @@ public class QueueLinkedList implements Queue, ADT {
 					return true;
 				}
 			} catch (OverflowException oe) {
+				// the first time the queue will copied
 				if (flag == 1) {
+					// get the double size of the queue
 					this.size = size * 2;
 					queue.addLast(o);
 					num++;
@@ -54,6 +58,7 @@ public class QueueLinkedList implements Queue, ADT {
 		if (this.isEmpty()) {
 			throw new UnderflowException();
 		} else {
+			// get the first element an delete it 
 			Object o = queue.getFirst();
 			queue.removeFirst();
 			num--;
@@ -64,6 +69,7 @@ public class QueueLinkedList implements Queue, ADT {
 	@Override
 	public Object front() throws UnderflowException {
 		if (!this.isEmpty()) {
+			// get the first element without deleting
 			return this.queue.getFirst();
 		} else {
 			throw new UnderflowException();
@@ -72,6 +78,7 @@ public class QueueLinkedList implements Queue, ADT {
 
 	@Override
 	public Queue empty() {
+		// new empty queue with initialize size
 		return new QueueLinkedList();
 	}
 

@@ -20,6 +20,7 @@ public class StackArray implements Stack, ADT {
 
 	@Override
 	public boolean push(Object o) throws OverflowException {
+		// if the insertion object equals null it is not necessary to do anything
 		if(o != null){
 			try {
 				if (size() >= stack.length ) {
@@ -30,12 +31,13 @@ public class StackArray implements Stack, ADT {
 					return true;
 				}
 			} catch (OverflowException oe) {
+				// the first time the stack will copied
 				if (flag == 1) {
 					Object[] copiedStack = new Object[size() * 2];
 					for (int i = 0; i < this.stack.length; i++) {
 							copiedStack[i] = stack[i];
 					}
-					
+					// get the copy of the stack
 					copiedStack[num] = o;
 					num++;
 					this.setStack(copiedStack);
@@ -56,6 +58,7 @@ public class StackArray implements Stack, ADT {
 		if (this.isEmpty()) {
 			throw new UnderflowException();
 		} else {
+			// get the first element an delete it 
 			num--;
 			return stack[num];
 		}
@@ -66,12 +69,14 @@ public class StackArray implements Stack, ADT {
 		if (this.isEmpty()) {
 			throw new UnderflowException();
 		} else {
-			return stack[num - 1];
+			// get the first element without deleting
+			return this.stack[num - 1];
 		}
 	}
 
 	@Override
 	public ADT empty() {
+		// new empty stack with initialize size
 		return new StackArray();
 	}
 

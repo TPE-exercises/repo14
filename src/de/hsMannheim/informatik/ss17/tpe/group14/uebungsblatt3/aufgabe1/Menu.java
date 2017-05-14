@@ -9,23 +9,34 @@ import de.hsMannheim.informatik.ss17.tpe.group14.uebungsblatt3.myutil.Stack.*;
 public class Menu {
 	
 
+	/**
+	 * print the main menu on the console
+	 */
 	static void printMenu() {
+		// print menu
 		println("Main Menü");
 		println("Q \t Queue");
 		println("S \t Stack");
 
 		String temp = readLine();
+		// if the entry is right go to the next menu
 		if (temp.equals("Q") || temp.equals("q")) {
 			implementationMenu("Q");
 		} else if (temp.equals("S") || temp.equals("s")) {
 			implementationMenu("S");
 		} else {
+			// if the entry is wrong
 			println("try again");
 			printMenu();
 		}
 	}
 
+	/**
+	 * print the datatype for the implementation on the console
+	 * @return the datatype as a string
+	 */
 	private static String dataType() {
+		// print menu
 		println("Implementation Menü");
 		println("Which datatype will you insert?");
 		println("I \t Integer");
@@ -47,12 +58,14 @@ public class Menu {
 	}
 
 	private static void implementationMenu(String adt) {
+		// print menu
 		String dataType = dataType();
 		readLine();
 		println("A \t Array Implementation");
 		println("L \t Linked List Implementation");
 		char temp = readChar();
 
+		// if the datatype is an queue
 		if (adt.equals("Q")) {
 			println("1 \t size of the Queue");
 			println("2 \t continue with standard");
@@ -91,6 +104,7 @@ public class Menu {
 					break;
 				}
 			}
+			// if the datatype is a stack
 		} else if (adt.equals("S")) {
 			println("1 \t size of the Stack");
 			println("2 \t continue with standard");
@@ -132,6 +146,11 @@ public class Menu {
 		}
 	}
 
+	/**
+	 * print stack menu
+	 * @param stack
+	 * @param dataType
+	 */
 	private static void stackMenu(Stack stack, String dataType) {
 		println("Stack Menü");
 		println("1 \t push(Object o)");
@@ -201,12 +220,18 @@ public class Menu {
 			break;
 		}
 
+		// if the menu is not leaving print it new
 		while (temp != 20) {
 			stackMenu(stack, dataType);
 		}
 		printExitMenu();
 	}
 
+	/**
+	 * print queue menu
+	 * @param queue 
+	 * @param dataType
+	 */
 	private static void queueMenu(Queue queue, String dataType) {
 		println("Queue Menü");
 		println("1 \t enter(Object o)");
@@ -276,12 +301,16 @@ public class Menu {
 			break;
 		}
 
+		// if the menu is not leaving print it new
 		while (temp != 20) {
 			queueMenu(queue, dataType);
 		}
 		printExitMenu();
 	}
 	
+	/**
+	 * print exit menu
+	 */
 	static void printExitMenu(){
 		println("Exit Menü");
 		println("1 \t continue with Main Menu");

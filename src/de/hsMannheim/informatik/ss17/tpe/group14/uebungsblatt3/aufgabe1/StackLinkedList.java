@@ -7,7 +7,7 @@ public class StackLinkedList implements Stack, ADT {
 
 	protected LinkedList stack;
 	protected int size;
-	protected int num = 0;
+	protected int num = 0; // number of elements in stack
 	protected int flag = 1;
 
 	public StackLinkedList(int size) {
@@ -15,14 +15,16 @@ public class StackLinkedList implements Stack, ADT {
 		this.stack = new LinkedList();
 	}
 
-	// standard initialize with 10
+	
 	public StackLinkedList() {
+		// standard initialize with 10
 		this.size = 10;
 		this.stack = new LinkedList();
 	}
 
 	@Override
 	public boolean push(Object o) throws OverflowException {
+		// if the insertion object equals null it is not necessary to do anything
 		if(o != null){
 			try {
 				if (size() >= size) {
@@ -33,7 +35,9 @@ public class StackLinkedList implements Stack, ADT {
 					return true;
 				}
 			} catch (OverflowException oe) {
+				// the first time the stack will copied
 				if (flag == 1) {
+					// double the size of the stack
 					this.size = size * 2;
 					stack.addFirst(o);
 					num++;
@@ -54,6 +58,7 @@ public class StackLinkedList implements Stack, ADT {
 		if (this.isEmpty()) {
 			throw new UnderflowException();
 		} else {
+			// get the first element an delete it 
 			Object o = stack.getFirst();
 			stack.removeFirst();
 			num--;
@@ -66,12 +71,14 @@ public class StackLinkedList implements Stack, ADT {
 		if (this.isEmpty()) {
 			throw new UnderflowException();
 		} else {
-			return stack.getFirst();
+			// get the first element without deleting
+			return this.stack.getFirst();
 		}
 	}
 
 	@Override
 	public Stack empty() {
+		// new empty stack with initialize size
 		return new StackLinkedList();
 	}
 
