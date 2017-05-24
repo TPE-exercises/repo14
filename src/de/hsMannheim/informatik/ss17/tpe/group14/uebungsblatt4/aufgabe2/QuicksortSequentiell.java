@@ -4,12 +4,18 @@ public class QuicksortSequentiell implements SortAlgorithm {
 
 	private Comparable [] array;
 	private int size;
+	private int recursionsCounter = 0;
+	private int swapCounter = 0;
+	private int comparisonCounter = 0;
+	private double startTime = 0;
+	private double endTime = 0;
 
 	public QuicksortSequentiell() {
-		this.size = 0;
+		super();
 	}
 
 	public void sort(Comparable[] array) {
+		startTime = System.currentTimeMillis();
 		// the array do not exist
 		if (array == null || array.length == 0) {
 			return;
@@ -40,26 +46,35 @@ public class QuicksortSequentiell implements SortAlgorithm {
 			// find from left side of the pivot an element that is bigger than
 			// the pivot
 			while (this.array[l].compareTo(pivot) < 0) {
+				comparisonCounter++;
 				l++;
 			}
 			// find from the right side of the pivot an element that is smaller
 			// than the pivot
 			while (this.array[r].compareTo(pivot) > 0) {
+				comparisonCounter++;
 				r--;
 			}
 			// if l bigger r the array is sorted
 			if (l <= r) {
 				change(l, r);
+				swapCounter++;
 				// move index to next position on both sides
 				l++;
 				r--;
 			}
 		}
 		// recursion
-		if (lowerIndex < r)
+		if (lowerIndex < r){
+			recursionsCounter++;
 			quickSort(lowerIndex, r);
-		if (l < higherIndex)
+		}
+		if (l < higherIndex){
+			recursionsCounter++;
 			quickSort(l, higherIndex);
+		}
+			
+		
 	}
 
 	/**
@@ -74,16 +89,39 @@ public class QuicksortSequentiell implements SortAlgorithm {
 		Comparable temp = this.array[l];
 		this.array[l] = this.array[r];
 		this.array[r] = temp;
+		printArray(array);
+	}
+	
+	/**
+	 * print an Array
+	 * @param input
+	 */
+	private void printArray(Comparable[] input){
+		for (int i = 0; i < input.length; i++) {
+			System.out.print(input[i].toString() + ", ");
+		}
+		System.out.println();
+	}
+	
+	/**
+	 * print all stats of the Quicksort
+	 */
+	public void printStats(){
+		endTime = System.currentTimeMillis();
+		System.out.println("Recoursionsteps: " + recursionsCounter);
+		System.out.println("Swaps: " + swapCounter);
+		System.out.println("Comparison: " + comparisonCounter);
+		System.out.println("Time: " + (endTime - startTime)/1000 + "s");
 	}
 
 	public static void main(String a[]) {
 
 		QuicksortSequentiell sorter = new QuicksortSequentiell();
-		Integer[] input = { 7, 1, 3, 0, 7, 34, 0, 10, 19, 1 };
-		sorter.sort(input);
-		for (int i : input) {
-			System.out.print(i);
-			System.out.print(", ");
+		Integer[] input = new Integer [50];
+		for (int i = 0; i < input.length; i++){
+			input[i] = (Integer)(int) (Math.random() * 100)+1;
 		}
+		sorter.sort(input);
+		sorter.printStats();
 	}
 }
