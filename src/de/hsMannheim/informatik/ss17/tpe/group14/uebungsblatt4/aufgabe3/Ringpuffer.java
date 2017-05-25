@@ -1,8 +1,5 @@
 package de.hsMannheim.informatik.ss17.tpe.group14.uebungsblatt4.aufgabe3;
 
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
-
 public class Ringpuffer {
 
 	private Object[] ringpuffer;
@@ -64,28 +61,5 @@ public class Ringpuffer {
 
 	public boolean isFull() {
 		return num == this.ringpuffer.length;
-	}
-
-	public static void main(String[] args) {
-		Ringpuffer rp = new Ringpuffer();
-		assertFalse(rp.isFull());
-		assertTrue(rp.isEmpty());
-		rp.put(4);
-		assertFalse(rp.isEmpty());
-		rp = new Ringpuffer(2);
-		rp.put(6);
-		rp.put(7);
-		assertTrue(rp.isFull());
-		assertFalse(rp.isEmpty());
-		rp.get();
-		rp.get();
-		assertTrue(rp.isEmpty());
-		rp.put(9);
-		rp.put(0);
-		rp.get();
-		assertFalse(rp.isFull());
-		rp.put(2);
-		assertTrue(rp.isFull());
-
 	}
 }
