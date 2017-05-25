@@ -14,7 +14,6 @@ public class QuicksortParallel extends Thread implements SortAlgorithm {
 	private double endTime = 0;
 
 	public QuicksortParallel() {
-		super();
 	}
 
 	QuicksortParallel(int lowerIndex, int higherIndex, Comparable array[]) {
@@ -33,7 +32,6 @@ public class QuicksortParallel extends Thread implements SortAlgorithm {
 		// the field array initialize with the parameter array
 		// start the quicksort with initialize low border and high border
 		quickSort(0, array.length - 1, array);
-		// new QuicksortParallel(0, array.length-1, array).start();
 	}
 
 	@Override
@@ -70,9 +68,11 @@ public class QuicksortParallel extends Thread implements SortAlgorithm {
 				r--;
 			}
 		}
+		// if there are more Threads possible create new one
 		if (numThreads < MAX_THREADS) {
 			numThreads++;
-			// recursion
+			// split the quicksort in new threads, they are only work in their
+			// part of the array
 			if (lowerIndex < r) {
 				recursionsCounter++;
 				QuicksortParallel threadLeft = new QuicksortParallel(lowerIndex, r, array);
@@ -94,7 +94,10 @@ public class QuicksortParallel extends Thread implements SortAlgorithm {
 				}
 			}
 
+			// if no more threads are possible the current thread works further
+			// it is not necessary to create an new one
 		} else {
+			// recursion
 			if (lowerIndex < r) {
 				recursionsCounter++;
 				quickSort(lowerIndex, r, array);
@@ -147,7 +150,7 @@ public class QuicksortParallel extends Thread implements SortAlgorithm {
 
 	public static void main(String[] args) {
 
-		Integer[] input = new Integer[50];
+		Integer[] input = new Integer[1000];
 		for (int i = 0; i < input.length; i++) {
 			input[i] = (Integer) (int) (Math.random() * 100) + 1;
 		}

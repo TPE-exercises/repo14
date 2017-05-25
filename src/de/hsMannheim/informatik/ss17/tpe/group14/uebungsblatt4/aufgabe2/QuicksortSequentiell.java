@@ -113,15 +113,4 @@ public class QuicksortSequentiell implements SortAlgorithm {
 		System.out.println("Comparison: " + comparisonCounter);
 		System.out.println("Time: " + (endTime - startTime)/1000 + "s");
 	}
-
-	public static void main(String a[]) {
-
-		QuicksortSequentiell sorter = new QuicksortSequentiell();
-		Integer[] input = new Integer [50];
-		for (int i = 0; i < input.length; i++){
-			input[i] = (Integer)(int) (Math.random() * 100)+1;
-		}
-		sorter.sort(input);
-		sorter.printStats();
-	}
 }
