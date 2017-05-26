@@ -21,7 +21,7 @@ public class QuicksortTest {
 		QuicksortParallel qsP = new QuicksortParallel();
 		qsP.sort(array);
 		String s = "6, 18, 30, 44, 55, 94, ";
-		assertEquals(s, qsP.toString(array));
+		assertEquals(s, qsP.toString());
 	}
 	
 		

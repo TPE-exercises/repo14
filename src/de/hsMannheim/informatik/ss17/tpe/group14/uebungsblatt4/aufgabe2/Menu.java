@@ -15,10 +15,14 @@ public class Menu {
 	 * @return
 	 */
 	static public Integer[] initializeArray(Integer[] array){
-		for (int i = 0; i < array.length; i++){
-			array[i] = (Integer)(int) (Math.random() * 100)+0;
-		}
-		return array;
+		if(array != null || array.length <= 0){
+			for (int i = 0; i < array.length; i++){
+				array[i] = (Integer)(int) (Math.random() * 100)+0;
+			}
+			return array;
+		} else 
+			return array;
+		
 	}
 	
 	/**
@@ -36,7 +40,9 @@ public class Menu {
 	 * run both kind of quickssorts 
 	 */
 	static public void runQuicksorts(){
-		Integer[] arrayS = new Integer[500];
+//		Integer[] arrayS = new Integer[50];
+//		Integer[] arrayS ={};
+		Integer[] arrayS = null;
 		arrayS = initializeArray(arrayS);
 		Integer[] arrayP = arrayS.clone();
 		System.out.println("Quicksort Sequentiell");

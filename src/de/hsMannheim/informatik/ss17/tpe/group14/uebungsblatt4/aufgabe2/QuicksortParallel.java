@@ -41,28 +41,29 @@ public class QuicksortParallel extends Thread implements SortAlgorithm {
 	}
 
 	private void quickSort(int lowerIndex, int higherIndex, Comparable[] array) {
+		this.array = array;
 		// pointer from left and pointer from right
 		int l = lowerIndex;
 		int r = higherIndex;
 		// calculate pivot number
-		Comparable pivot = array[(higherIndex + lowerIndex) / 2];
+		Comparable pivot = this.array[(higherIndex + lowerIndex) / 2];
 		// Divide into two arrays
 		while (l <= r) {
 			// find from left side of the pivot an element that is bigger than
 			// the pivot
-			while (array[l].compareTo(pivot) < 0) {
+			while (this.array[l].compareTo(pivot) < 0) {
 				comparisonCounter++;
 				l++;
 			}
 			// find from the right side of the pivot an element that is smaller
 			// than the pivot
-			while (array[r].compareTo(pivot) > 0) {
+			while (this.array[r].compareTo(pivot) > 0) {
 				comparisonCounter++;
 				r--;
 			}
 			// if l bigger r the array is sorted
 			if (l <= r) {
-				change(l, r, array);
+				change(l, r);
 				swapCounter++;
 				// move index to next position on both sides
 				l++;
@@ -76,7 +77,7 @@ public class QuicksortParallel extends Thread implements SortAlgorithm {
 			// part of the array
 			if (lowerIndex < r) {
 				recursionsCounter++;
-				QuicksortParallel threadLeft = new QuicksortParallel(lowerIndex, r, array);
+				QuicksortParallel threadLeft = new QuicksortParallel(lowerIndex, r, this.array);
 				threadLeft.start();
 				try {
 					threadLeft.join();				
@@ -86,7 +87,7 @@ public class QuicksortParallel extends Thread implements SortAlgorithm {
 			}
 			if (l < higherIndex) {
 				recursionsCounter++;
-				QuicksortParallel threadRight = new QuicksortParallel(l, higherIndex, array);
+				QuicksortParallel threadRight = new QuicksortParallel(l, higherIndex, this.array);
 				threadRight.start();
 				try {
 					threadRight.join();
@@ -101,11 +102,11 @@ public class QuicksortParallel extends Thread implements SortAlgorithm {
 			// recursion
 			if (lowerIndex < r) {
 				recursionsCounter++;
-				quickSort(lowerIndex, r, array);
+				quickSort(lowerIndex, r, this.array);
 			}
 			if (l < higherIndex) {
 				recursionsCounter++;
-				quickSort(l, higherIndex, array);
+				quickSort(l, higherIndex, this.array);
 			}
 		}
 	}
@@ -118,7 +119,7 @@ public class QuicksortParallel extends Thread implements SortAlgorithm {
 	 * @param r
 	 *            second index to change
 	 */
-	private void change(int l, int r, Comparable[] array) {
+	private void change(int l, int r) {
 		Comparable temp = array[l];
 		array[l] = array[r];
 		array[r] = temp;
@@ -133,7 +134,7 @@ public class QuicksortParallel extends Thread implements SortAlgorithm {
 	 * @param input
 	 */
 	private synchronized void printArray(Comparable[] input) {
-		String s = toString(input);
+		String s = toString();
 		System.out.println(s);
 	}
 
@@ -149,12 +150,9 @@ public class QuicksortParallel extends Thread implements SortAlgorithm {
 		System.out.println("Time: " + (endTime - startTime) / 1000 + "s");
 	}
 	
-	/**
-	 * get an string of the array
-	 * @param array
-	 * @return
-	 */
-	public String toString(Comparable[] array){
+
+	@Override
+	public String toString(){
 		String s = ""; 
 		for (int i = 0; i < array.length; i++) {
 			s += array[i].toString() + ", ";
