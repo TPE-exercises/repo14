@@ -9,6 +9,7 @@ public class QuicksortSequentiell implements SortAlgorithm {
 	private int comparisonCounter = 0;
 	private double startTime = 0;
 	private double endTime = 0;
+	private int printCounter = 0;
 
 	public QuicksortSequentiell() {
 		super();
@@ -89,7 +90,9 @@ public class QuicksortSequentiell implements SortAlgorithm {
 		Comparable temp = this.array[l];
 		this.array[l] = this.array[r];
 		this.array[r] = temp;
-		printArray(array);
+		printCounter++;
+		System.out.print(printCounter + ": ");
+		printArray(array);	
 	}
 	
 	/**
@@ -97,10 +100,17 @@ public class QuicksortSequentiell implements SortAlgorithm {
 	 * @param input
 	 */
 	private void printArray(Comparable[] input){
-		for (int i = 0; i < input.length; i++) {
-			System.out.print(input[i].toString() + ", ");
+		String s = this.toString();
+		System.out.println(s);
+	}
+	
+	@Override
+	public String toString(){
+		String s = ""; 
+		for (int i = 0; i < array.length; i++) {
+			s += array[i].toString() + ", ";
 		}
-		System.out.println();
+		return s;
 	}
 	
 	/**

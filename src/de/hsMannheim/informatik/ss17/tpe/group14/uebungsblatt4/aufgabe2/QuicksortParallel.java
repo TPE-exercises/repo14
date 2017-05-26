@@ -12,6 +12,7 @@ public class QuicksortParallel extends Thread implements SortAlgorithm {
 	static private int comparisonCounter = 0;
 	private double startTime = 0;
 	private double endTime = 0;
+	static private int printCounter = 0;
 
 	public QuicksortParallel() {
 	}
@@ -78,7 +79,7 @@ public class QuicksortParallel extends Thread implements SortAlgorithm {
 				QuicksortParallel threadLeft = new QuicksortParallel(lowerIndex, r, array);
 				threadLeft.start();
 				try {
-					threadLeft.join();
+					threadLeft.join();				
 				} catch (InterruptedException ex) {
 					throw new IllegalStateException("Parallel quicksort threw an InterruptedException.");
 				}
@@ -121,7 +122,9 @@ public class QuicksortParallel extends Thread implements SortAlgorithm {
 		Comparable temp = array[l];
 		array[l] = array[r];
 		array[r] = temp;
-		printArray(array);
+		printCounter++;
+		System.out.print(printCounter + ": ");
+		printArray(array);	
 	}
 
 	/**
@@ -129,11 +132,9 @@ public class QuicksortParallel extends Thread implements SortAlgorithm {
 	 * 
 	 * @param input
 	 */
-	private void printArray(Comparable[] input) {
-		for (int i = 0; i < input.length; i++) {
-			System.out.print(input[i].toString() + ", ");
-		}
-		System.out.println();
+	private synchronized void printArray(Comparable[] input) {
+		String s = toString(input);
+		System.out.println(s);
 	}
 
 	/**
@@ -147,17 +148,17 @@ public class QuicksortParallel extends Thread implements SortAlgorithm {
 		System.out.println("Threads: " + numThreads);
 		System.out.println("Time: " + (endTime - startTime) / 1000 + "s");
 	}
-
-	public static void main(String[] args) {
-
-		Integer[] input = new Integer[1000];
-		for (int i = 0; i < input.length; i++) {
-			input[i] = (Integer) (int) (Math.random() * 100) + 1;
+	
+	/**
+	 * get an string of the array
+	 * @param array
+	 * @return
+	 */
+	public String toString(Comparable[] array){
+		String s = ""; 
+		for (int i = 0; i < array.length; i++) {
+			s += array[i].toString() + ", ";
 		}
-		QuicksortParallel sorter = new QuicksortParallel();
-		sorter.sort(input);
-		sorter.printStats();
-
+		return s;
 	}
-
 }
