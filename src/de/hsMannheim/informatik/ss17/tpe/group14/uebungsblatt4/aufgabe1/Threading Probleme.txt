@@ -1,0 +1,21 @@
+Threading Probleme
+1.	race condition : Mehrere Threads greifen auf geteilten Speicher zu und verändern ihn. Hierbei kann ein 
+    Verhalten auftreten das nicht gewünscht ist, ein Beispiel dazu ist RaceCondition.java. Die Lösung dieses 
+    Problems in Java ist die Synchronisation von Threads. 
+
+2.	Deadlock: Möchte ein Thread auf Daten zugreifen die durch einen anderen Thread synchronisiert sind und der
+    andere Thread diese Daten nie freigibt, weil dieser ebenfalls darauf wartet das der andere Thread ebenfalls 
+    synchronisierte Daten freigibt, entsteht ein Deadlock der ewig anhält, ein Beispiel dazu ist Deadlock.java.
+
+3.	Livelock: Ein Livelock entsteht dadurch das Zwei oder mehr Threads sich gegenseitig immer den Vortritt 
+    lassen und somit in eine Endlosschleife geraten, ein Beispiel dazu ist Livelock.java.
+
+4.	Starvation: Starvation ist eine unfaire Situation in der ein Thread weniger bis keine Laufzeit bekommt 
+    da andere Threads gierig sind und mehr Laufzeit beanspruchen. Diese Situation triff zum Beispiel auf, 
+    wenn ein Thread Daten manipulieren möchte, die in einem anderen Thread der sehr viel Berechnungszeit 
+    benötigt synchronisiert ist, dadurch ist der Thread eine lange Zeit blockiert. Ein Beispiel dazu ist Starvation.java.
+
+5.	Performance Hazards: Performance Hazards beschreibt das Problem, wenn trotz mehrerer Threads sich die 
+    Performance des Programms nicht verbessert. Das kann verschiedenen Ursachen haben wie zum Beispiel, 
+    dass das Programm sequenziell ist und die Threads sich gegenseitig nur aufhalten, oder der Flaschenhals 
+    etwas Anderes ist, wie die Festplatte oder das Netzwerk. Ein Beispiel dazu ist PerformanceHazards.java.

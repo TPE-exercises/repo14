@@ -1,35 +1,56 @@
 package de.hsMannheim.informatik.ss17.tpe.group14.uebungsblatt4.aufgabe1;
 
-public class Starvation extends Thread {
+public class Starvation {
 
 	private String s = "Hallo";
 
-	@Override
-	public void run() {
+	private class Thread1 extends Thread {
+		@Override
+		public void run() {
+			while (true) {
+				synchronized (s) {
+					// Blockiert s für eine lange Zeit.
+					try {
+						for (int i = 0; i < 10; ++i) {
+							System.out.println(s + " : " + getName());
+							sleep(100);
+						}
+					} catch (InterruptedException e) {
+						System.out.println(e.getMessage());
+						return;
+					}
+				}
+				// Macht eine pause damit der andere Thread überhaupt die Chance
+				// hat zu laufen.
+				System.out.println(getName() + ": pause");
+			}
+		}
+	}
 
-		synchronized (s) {
-			for (int i = 0; i < 10; ++i) {
-				System.out.println(s + " : " + getName());
-				
+	private class Thread2 extends Thread {
+		@Override
+		public void run() {
+			while (true) {
+				synchronized (s) {
+					// Sollte jede 50 ms den Text ausgeben doch bekommt nicht
+					// genug Laufzeit durch den anderen Thread
+					System.out.println(s + " : " + getName());
+				}
 				try {
-					sleep(100);
+					sleep(50);
 				} catch (InterruptedException e) {
-					e.getMessage();
+					System.out.println(e.getMessage());
 					return;
 				}
 			}
 		}
 	}
-	
+
 	public static void main(String[] args) {
-		Starvation s1 = new Starvation();
-		Starvation s2 = new Starvation();
-		Starvation s3 = new Starvation();
-		Starvation s4 = new Starvation();
-		
-		s1.start();
-		s2.start();
-		s3.start();
-		s4.start();
+		Thread1 t1 = new Starvation().new Thread1();
+		Thread2 t2 = new Starvation().new Thread2();
+
+		t1.start();
+		t2.start();
 	}
 }
