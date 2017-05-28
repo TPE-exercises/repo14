@@ -10,15 +10,16 @@ public class TimerThread extends Thread{
 	 * @param time in minutes
 	 * @param threads all threads they have to stop
 	 */
-	TimerThread(long time, Thread ... threads){
+	TimerThread(double time, Thread ... threads){
 		// from minutes in miliseconds
-		this.time = time*60*1000;
+		this.time = (long) (time*60*1000);
 		this.threads = threads;
 	}
 	
 	@Override
 	public void run(){
 		try {
+			System.out.println("Time has started: "+ this.time) ;
 			// the time the threads can work
 			sleep(time);
 			// interrupt all threads
