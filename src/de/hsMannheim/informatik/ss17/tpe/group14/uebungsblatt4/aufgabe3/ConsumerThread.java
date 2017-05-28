@@ -2,28 +2,34 @@ package de.hsMannheim.informatik.ss17.tpe.group14.uebungsblatt4.aufgabe3;
 
 public class ConsumerThread extends Thread {
 
-	Ringpuffer r;
+	private RingpufferThread r;
+	private long sleepTime;
 
-	ConsumerThread(Ringpuffer ringPuffer) {
+	/**
+	 * constructor of an Consumer Thread
+	 * @param name of the thread
+	 * @param ringPuffer the workspace of the thread
+	 * @param sleepTime in milliseconds
+	 */
+	ConsumerThread(String name, RingpufferThread ringPuffer, long sleepTime) {
+		this.setName(name);
+		this.sleepTime = sleepTime;
 		this.r = ringPuffer;
 	}
 
 	@Override
 	public void run() {
-		while (true) {
-			synchronized (this) {
-				Object o = this.r.get();
-				if (o == null) {
-					try {
-						sleep(10);
-						System.out.println();
-					} catch (InterruptedException e) {
-						e.printStackTrace();
-					}
-				} else {
-					System.out.print(getName() + ": " + o + ", ");
-				}
+		// if the thread is not interrupted get elements form the workarea
+		while (!isInterrupted()) {
+			try {
+				// print the element of the ringpuffer
+				System.out.print(getName() + ": " + this.r.get().toString() + ", ");
+				sleep(sleepTime);
+			} catch (InterruptedException e) {
+				// if it is interrupted the thread has done the work to do
+				interrupt();
 			}
 		}
 	}
+
 }

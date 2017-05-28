@@ -4,19 +4,19 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
-public class RingpufferTest {
+public class RingpufferThreadTest {
 
-	Ringpuffer rp = new Ringpuffer();
+	RingpufferThread rp = new RingpufferThread();
 	
 	@Test
-	public final void put(){
+	public final void put()throws InterruptedException{
 		
 		assertTrue(rp.put(1));
 		assertTrue(rp.put(3));
 	}
 	
 	@Test
-	public final void get(){
+	public final void get() throws InterruptedException{
 		rp.put(1);
 		rp.put(3);
 		assertEquals(1, rp.get());
@@ -25,12 +25,12 @@ public class RingpufferTest {
 	}
 	
 	@Test
-	public final void fullOrEmpty(){
+	public final void fullOrEmpty()throws InterruptedException{
 		assertFalse(rp.isFull());
 		assertTrue(rp.isEmpty());
 		rp.put(4);
 		assertFalse(rp.isEmpty());
-		rp = new Ringpuffer(2);
+		rp = new RingpufferThread(2);
 		rp.put(6);
 		rp.put(7);
 		assertTrue(rp.isFull());
