@@ -14,12 +14,16 @@ public class WordCounterWindow {
 	private final JTable table;
 	private JLabel elapsedTimeLabel = new JLabel("elapsedTime(ms): ");
 
+	/**
+	 * Constructor set the window up
+	 */
 	public WordCounterWindow() {
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setTitle("WordCounter");
 
 		frame.setLayout(new BorderLayout());
 
+		// Set the table model
 		DefaultTableModel model = new DefaultTableModel();
 		model.setColumnIdentifiers(new Object[] { "word", "count" });
 		table = new JTable(model);
@@ -29,17 +33,21 @@ public class WordCounterWindow {
 		JButton selectFileButton = new JButton("Select File");
 		selectFileButton.addActionListener(new AbstractAction() {
 
+			private static final long serialVersionUID = 3136482600733766398L;
+
+			// If the button is clicked open the file chooser dialog
 			@Override
 			public void actionPerformed(ActionEvent action) {
 				clearWindow();
-				
+
 				File file = setFile();
-				if (file == null) {
+				if (file == null) { // No file selected
 					JOptionPane.showMessageDialog(null, "No file selected", "Error", JOptionPane.ERROR_MESSAGE);
 				} else {
 					try {
 						countWords(file);
-					} catch (FileNotFoundException e) {
+					} catch (FileNotFoundException e) { // The given File don't
+														// exists
 						JOptionPane.showMessageDialog(null, "No file selected", "Error", JOptionPane.ERROR_MESSAGE);
 					}
 				}
@@ -57,6 +65,14 @@ public class WordCounterWindow {
 		frame.setVisible(true);
 	}
 
+	/**
+	 * Update the Table with the 100 most occurs words in the file
+	 * 
+	 * @param file
+	 *            with the words
+	 * @throws FileNotFoundException
+	 *             if the file not exists
+	 */
 	private void countWords(File file) throws FileNotFoundException {
 		long start = System.currentTimeMillis();
 
@@ -67,23 +83,30 @@ public class WordCounterWindow {
 			sortedWordCounts.add(new WordCount(entry.getKey(), entry.getValue()));
 		}
 
-		Collections.sort(sortedWordCounts);
+		// Sort by occur of the words
+		Collections.sort(sortedWordCounts, Collections.reverseOrder());
 
 		// List only 100 words
 		if (sortedWordCounts.size() > 100) {
-			sortedWordCounts = sortedWordCounts.subList(0, 99);
+			sortedWordCounts = sortedWordCounts.subList(0, 100);
 		}
-		
+
 		sortAlphabetical(sortedWordCounts);
-		
+
 		long elapsedTime = System.currentTimeMillis() - start;
 		elapsedTimeLabel.setText("elapsedTime(ms): " + elapsedTime);
-		
+
 		updateTable(sortedWordCounts);
-		
+
 		frame.setTitle("WordCounter : " + file.getAbsolutePath());
 	}
 
+	/**
+	 * Sort the words alphabetical
+	 * 
+	 * @param wordCounts
+	 *            to sort
+	 */
 	private void sortAlphabetical(List<WordCount> wordCounts) {
 		Collections.sort(wordCounts, new Comparator<WordCount>() {
 
@@ -94,11 +117,17 @@ public class WordCounterWindow {
 
 		});
 	}
-	
+
+	/**
+	 * Update the table with the new words
+	 * 
+	 * @param wordCounts
+	 *            the new words
+	 */
 	private void updateTable(List<WordCount> wordCounts) {
 		DefaultTableModel model = (DefaultTableModel) table.getModel();
-		
-		for(WordCount wordCount : wordCounts) {
+
+		for (WordCount wordCount : wordCounts) {
 			Object[] row = new Object[2];
 			row[0] = wordCount.getWord();
 			row[1] = wordCount.getCount();
@@ -106,26 +135,36 @@ public class WordCounterWindow {
 		}
 	}
 
+	/**
+	 * Open a file chooser and ask the user to set a file
+	 * 
+	 * @return the choosen file
+	 */
 	private File setFile() {
 		JFileChooser fc = new JFileChooser();
 		fc.setCurrentDirectory(new java.io.File("."));
 		fc.setFileSelectionMode(JFileChooser.FILES_ONLY);
 		int returnVal = fc.showSaveDialog(null);
+		// File selected?
 		if (returnVal == JFileChooser.APPROVE_OPTION) {
 			return fc.getSelectedFile();
 		}
 
 		return null;
 	}
-	
+
+	/**
+	 * Reset the window with title, table, and elapsed time label
+	 */
 	private void clearWindow() {
 		frame.setTitle("WordCounter");
-		
+
+		// Remove every row of the table
 		DefaultTableModel model = (DefaultTableModel) table.getModel();
-		for(int i = model.getRowCount() - 1; i >= 0; i--) {
+		for (int i = model.getRowCount() - 1; i >= 0; i--) {
 			model.removeRow(i);
 		}
-		
+
 		elapsedTimeLabel.setText("elapsedTime(ms): ");
 	}
 
