@@ -4,7 +4,7 @@ import static gdi.MakeItSimple.*;
 
 public class BTreeNode {
 
-	private Integer[] values;
+	private Comparable[] objects;
 
 	private BTreeNode[] children;
 
@@ -16,7 +16,7 @@ public class BTreeNode {
 	 */
 	public BTreeNode(int degree) {
 		// 2m+1 object in an node
-		values = new Integer[degree * 2 + 1];
+		objects = new Comparable[degree * 2 + 1];
 		// 2m+2 children on an node
 		children = new BTreeNode[degree * 2 + 2];
 	}
@@ -31,12 +31,12 @@ public class BTreeNode {
 	 * @throws GDIException
 	 *             if the position is out of range
 	 */
-	public Integer getValue(int pos) {
-		if (pos < 0 || pos > values.length - 1) {
+	public Comparable getObject(int pos) {
+		if (pos < 0 || pos > objects.length - 1) {
 			throw new GDIException("pos out of range");
 		}
 
-		return values[pos];
+		return objects[pos];
 	}
 
 	/**
@@ -67,12 +67,12 @@ public class BTreeNode {
 	 * @throws GDIException
 	 *             if the position is out of range
 	 */
-	public void setValue(int pos, Integer value) {
-		if (pos < 0 || pos > values.length - 1) {
+	public void setObject(int pos, Comparable value) {
+		if (pos < 0 || pos > objects.length - 1) {
 			throw new GDIException("pos out of range");
 		}
 
-		values[pos] = value;
+		objects[pos] = value;
 	}
 
 	/**
@@ -99,8 +99,8 @@ public class BTreeNode {
 	 * 
 	 * @return maximal node count
 	 */
-	public int getValuesCount() {
-		return values.length;
+	public int getObjectCount() {
+		return objects.length;
 	}
 
 	/**

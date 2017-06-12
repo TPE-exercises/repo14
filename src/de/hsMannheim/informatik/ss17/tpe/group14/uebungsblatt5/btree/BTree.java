@@ -1,7 +1,6 @@
 package de.hsMannheim.informatik.ss17.tpe.group14.uebungsblatt5.btree;
 
-import de.hsMannheim.informatik.ss17.tpe.group14.uebungsblatt5.btree.list.*;
-import gdi.MakeItSimple.GDIException;
+import java.util.List;
 
 public interface BTree {
 	/**
@@ -13,7 +12,7 @@ public interface BTree {
 	 * @throws GDIException
 	 *             if the object is null
 	 */
-	public abstract boolean insert(Integer object);
+	public abstract boolean insert(Comparable object);
 
 	/**
 	 * Insert all values from the file to the tree
@@ -31,7 +30,7 @@ public interface BTree {
 	 *            to find in the tree
 	 * @return true if the object is in the tree, else fase
 	 */
-	public abstract boolean contains(Integer object);
+	public abstract boolean contains(Comparable object);
 
 	/**
 	 * Get you the number of elements they are in the tree
@@ -55,7 +54,7 @@ public interface BTree {
 	 * @throws GDIException
 	 *             if the tree is empty
 	 */
-	public abstract Integer getMax();
+	public abstract Comparable getMax();
 
 	/**
 	 * Get you the minimal object in the tree
@@ -65,7 +64,7 @@ public interface BTree {
 	 * @throws GDIException
 	 *             if the tree is empty
 	 */
-	public abstract Integer getMin();
+	public abstract Comparable getMin();
 
 	/**
 	 * Check if the tree is empty or not
@@ -107,5 +106,5 @@ public interface BTree {
 	 * 
 	 * @return LinkedList containing all objects in the tree
 	 */
-	public abstract MyLinkedList getAllElements();
+	public abstract List<Comparable> getAllElements();
 }
