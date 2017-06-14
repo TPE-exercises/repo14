@@ -107,4 +107,6 @@ public interface BTree {
 	 * @return LinkedList containing all objects in the tree
 	 */
 	public abstract List<Comparable> getAllElements();
+	
+	public abstract BTree clone();
 }

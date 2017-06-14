@@ -496,10 +496,10 @@ public class MyBTree implements BTree {
 	 * @return MyBTree a copy of the tree
 	 */
 	@Override
-	public MyBTree clone() {
+	public BTree clone() {
 		List<Comparable> objects = getAllElements();
 
-		MyBTree tree = new MyBTree(degree);
+		BTree tree = new MyBTree(degree);
 
 		for (int i = 0; i < objects.size(); ++i) {
 			// Insert all objects as an deep copy
