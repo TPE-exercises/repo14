@@ -1,8 +1,11 @@
 package de.hsMannheim.informatik.ss17.tpe.group14.uebungsblatt5.btree;
 
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
+import java.util.Scanner;
 
 public class MyBTree implements BTree {
 
@@ -37,6 +40,11 @@ public class MyBTree implements BTree {
 			root.setObject(0, object);
 			return true;
 		} else {
+			// Has the same type
+			if(object.getClass().equals(root.getClass())) {
+				return false;
+			}
+			
 			return insertRecursive(object, root);
 		}
 	}
@@ -177,26 +185,43 @@ public class MyBTree implements BTree {
 	}
 	
 	@Override
-	public boolean insert(String filename) {
-		/*
-		// Check if the file exist if not there is nothing to insert
-		if (!isFilePresent(filename)) {
-			// File not exist
-			return false;
-		}
-
-		Object file = openInputFile(filename);
+	public boolean insertInts(String filename) throws FileNotFoundException {
+		
+		File file = new File(filename);
+		Scanner scanner = new Scanner(file);
 
 		// Insert all values from the file in the current tree
-		while (!isEndOfInputFile(file)) {
-			int value = readInt(file);
-			insert(value);
+		while (scanner.hasNextInt()) {
+			insert(scanner.nextInt());
 		}
-		closeInputFile(file);
+		
+		scanner.close();
 
 		return true;
-		*/
-		return true;
+	}
+	
+	@Override
+	public void clear() {
+		root = null;
+	}
+	
+	@Override
+	public boolean delete(Comparable object) {
+		List<Comparable> elements = getAllElements();
+		
+		if(elements.contains(object)) {
+			elements.remove(object);
+			
+			clear();
+			
+			for(Comparable element : elements) {
+				insert(element);
+			}
+		
+			return true;
+		} else {
+			return false;
+		}
 	}
 
 	@Override
@@ -335,12 +360,20 @@ public class MyBTree implements BTree {
 	}
 
 	@Override
-	public void addAll(BTree otherTree) {
+	public boolean addAll(BTree otherTree) {
 		List<Comparable> objects = otherTree.getAllElements();
 
+		if(!objects.isEmpty()) {
+			if(objects.get(0).getClass() != root.getClass()) {
+				return false;
+			}
+		}
+		
 		for (int i = 0; i < objects.size(); ++i) {
 			insert(objects.get(i));
 		}
+		
+		return true;
 	}
 
 	@Override
@@ -490,11 +523,6 @@ public class MyBTree implements BTree {
 
 	}
 
-	/**
-	 * Return a deep copy of the tree
-	 * 
-	 * @return MyBTree a copy of the tree
-	 */
 	@Override
 	public MyBTree clone() {
 		List<Comparable> objects = getAllElements();
@@ -502,8 +530,7 @@ public class MyBTree implements BTree {
 		MyBTree tree = new MyBTree(degree);
 
 		for (int i = 0; i < objects.size(); ++i) {
-			// Insert all objects as an deep copy
-			//tree.insert(new Integer(objects.get(i).intValue()));
+			tree.insert(objects.get(i));
 		}
 
 		return tree;

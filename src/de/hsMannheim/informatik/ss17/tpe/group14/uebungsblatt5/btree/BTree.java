@@ -1,5 +1,6 @@
 package de.hsMannheim.informatik.ss17.tpe.group14.uebungsblatt5.btree;
 
+import java.io.FileNotFoundException;
 import java.util.List;
 
 public interface BTree {
@@ -20,8 +21,15 @@ public interface BTree {
 	 * @param filename
 	 *            of the file
 	 * @return false if the file not exists, else true
+	 * @throws FileNotFoundException
+	 *             if the file does not exists
 	 */
-	public abstract boolean insert(String filename);
+	public abstract boolean insertInts(String filename) throws FileNotFoundException;
+
+	/**
+	 * Clear the tree
+	 */
+	public void clear();
 
 	/**
 	 * Search through the complete tree to find the given object
@@ -31,6 +39,16 @@ public interface BTree {
 	 * @return true if the object is in the tree, else fase
 	 */
 	public abstract boolean contains(Comparable object);
+
+	/**
+	 * Delete the given element in the tree
+	 * 
+	 * @param object
+	 *            to delete
+	 * 
+	 * @return true if the object is deleted, else false
+	 */
+	public abstract boolean delete(Comparable object);
 
 	/**
 	 * Get you the number of elements they are in the tree
@@ -78,8 +96,10 @@ public interface BTree {
 	 * 
 	 * @param otherTree
 	 *            with the object to insert
+	 * 
+	 * @return true if the other tree can be added to the tree, else false
 	 */
-	public abstract void addAll(BTree otherTree);
+	public abstract boolean addAll(BTree otherTree);
 
 	/**
 	 * Print the B-Tree: left, node, right
