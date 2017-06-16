@@ -18,6 +18,7 @@ public class TestMyBTreeIterator {
 		tree.insert(new Integer (1));
 		tree.insert(new Integer (20));
 		tree.insert(new Integer (13));
+		it = new MyBTreeIterator(tree);
 		assertTrue(it.hasNext());
 		it.remove();
 		it.remove();
@@ -29,15 +30,18 @@ public class TestMyBTreeIterator {
 	@Test
 	public final void next(){
 		tree.insert(new Integer(19));
-		assertTrue("19".equals(it.next().toString()));
+		it = new MyBTreeIterator(tree);
+		assertEquals("19",it.next().toString());
 		tree.insert(new Integer (1));
-		assertTrue("1".equals(it.next().toString()));
+		it = new MyBTreeIterator(tree);
+		assertEquals("1", it.next().toString());
 	}
 	
 	@Test
 	public final void remove(){
 		tree.insert(new Integer(19));
 		tree.insert(new Integer (1));
+		it = new MyBTreeIterator(tree);
 		it.remove();
 		assertTrue("19".equals(it.next().toString()));
 		
