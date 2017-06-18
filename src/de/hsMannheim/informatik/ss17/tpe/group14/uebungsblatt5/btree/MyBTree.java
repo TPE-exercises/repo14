@@ -44,7 +44,7 @@ public class MyBTree implements BTree, Iterable<Comparable> {
 			return true;
 		} else {
 			// Has the same type
-			if(object.getClass().equals(root.getClass())) {
+			if(object.getClass().getTypeName().equals(root.getClass().getTypeName())) {
 				return false;
 			}
 			
@@ -367,7 +367,7 @@ public class MyBTree implements BTree, Iterable<Comparable> {
 		List<Comparable> objects = otherTree.getAllElements();
 
 		if(!objects.isEmpty()) {
-			if(objects.get(0).getClass() != root.getClass()) {
+			if(objects.get(0).getClass().getTypeName().equals(root.getClass().getTypeName())) {
 				return false;
 			}
 		}
