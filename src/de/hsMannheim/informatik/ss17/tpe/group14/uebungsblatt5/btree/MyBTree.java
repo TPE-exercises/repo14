@@ -2,12 +2,15 @@ package de.hsMannheim.informatik.ss17.tpe.group14.uebungsblatt5.btree;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
 import java.util.Scanner;
 
-public class MyBTree implements BTree {
+import de.hsMannheim.informatik.ss17.tpe.group14.uebungsblatt5.aufgabe2.MyBTreeIterator;
+
+public class MyBTree implements BTree, Iterable<Comparable> {
 
 	private final int degree;
 	private BTreeNode root;
@@ -534,5 +537,10 @@ public class MyBTree implements BTree {
 		}
 
 		return tree;
+	}
+
+	@Override
+	public Iterator<Comparable> iterator() {
+		return new MyBTreeIterator(this);
 	}
 }

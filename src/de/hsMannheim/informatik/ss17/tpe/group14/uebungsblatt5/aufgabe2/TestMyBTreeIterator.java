@@ -2,14 +2,16 @@ package de.hsMannheim.informatik.ss17.tpe.group14.uebungsblatt5.aufgabe2;
 
 import static org.junit.Assert.*;
 
+import java.util.Iterator;
+
 import org.junit.Test;
 
 import de.hsMannheim.informatik.ss17.tpe.group14.uebungsblatt5.btree.*;
 
 public class TestMyBTreeIterator {
 	
-	private BTree tree = new MyBTree(2);
-	private MyBTreeIterator it = new MyBTreeIterator(tree);
+	private MyBTree tree = new MyBTree(2);
+	private Iterator<Comparable> it = tree.iterator();
 
 	@Test
 	public final void hasNext() {
@@ -18,7 +20,7 @@ public class TestMyBTreeIterator {
 		tree.insert(new Integer (1));
 		tree.insert(new Integer (20));
 		tree.insert(new Integer (13));
-		it = new MyBTreeIterator(tree);
+		it = tree.iterator();
 		assertTrue(it.hasNext());
 		it.remove();
 		it.remove();
@@ -30,10 +32,10 @@ public class TestMyBTreeIterator {
 	@Test
 	public final void next(){
 		tree.insert(new Integer(19));
-		it = new MyBTreeIterator(tree);
+		it = tree.iterator();
 		assertEquals("19",it.next().toString());
 		tree.insert(new Integer (1));
-		it = new MyBTreeIterator(tree);
+		it = tree.iterator();
 		assertEquals("1", it.next().toString());
 	}
 	
@@ -41,10 +43,24 @@ public class TestMyBTreeIterator {
 	public final void remove(){
 		tree.insert(new Integer(19));
 		tree.insert(new Integer (1));
-		it = new MyBTreeIterator(tree);
+		it = tree.iterator();
 		it.remove();
 		assertTrue("19".equals(it.next().toString()));
+	}
+	
+	@Test 
+	public final void foreachLoopWithElements(){
+		tree.insert(new Integer(19));
+		tree.insert(new Integer(1));
+		tree.insert(new Integer(10));
+		tree.insert(new Integer(12));
+		int loopCounter = 0;
+		
+		for(Comparable i : tree){
+			System.out.print(i + ", ");
+			loopCounter++;
+		}
+		assertEquals(4,loopCounter);
 		
 	}
-
 }
