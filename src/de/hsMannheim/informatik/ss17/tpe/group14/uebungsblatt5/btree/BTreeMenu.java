@@ -109,7 +109,7 @@ public class BTreeMenu {
 			System.out.print("index to clone: ");
 			int index = scanner.nextInt();
 			if(index > 0 && index < 3)
-				trees[index] = workingTree.clone();
+				trees[index] = (MyBTree) workingTree.clone();
 			else
 				System.out.print("other index");
 			break;
