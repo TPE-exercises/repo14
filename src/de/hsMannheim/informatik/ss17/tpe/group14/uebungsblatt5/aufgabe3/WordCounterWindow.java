@@ -112,7 +112,19 @@ public class WordCounterWindow {
 
 			@Override
 			public int compare(WordCount o1, WordCount o2) {
-				return o1.getWord().compareTo(o2.getWord());
+				int val = o1.compareTo(o2);
+				
+				if(val == -1) {
+					val = 1;
+				} else if(val == 1) {
+					val = -1;
+				}
+				
+				if(val == 0) {
+					return o1.getWord().compareTo(o2.getWord());
+				}
+				
+				return val;
 			}
 
 		});

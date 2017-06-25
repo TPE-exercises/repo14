@@ -8,6 +8,8 @@ import java.util.List;
 import java.util.Queue;
 import java.util.Scanner;
 
+import org.hamcrest.core.IsInstanceOf;
+
 import de.hsMannheim.informatik.ss17.tpe.group14.uebungsblatt5.aufgabe2.MyBTreeIterator;
 
 public class MyBTree implements BTree, Iterable<Comparable> {
@@ -44,7 +46,7 @@ public class MyBTree implements BTree, Iterable<Comparable> {
 			return true;
 		} else {
 			// Has the same type
-			if(object.getClass().getTypeName().equals(root.getClass().getTypeName())) {
+			if(!object.getClass().equals(root.getObject(0).getClass())) {
 				return false;
 			}
 			
@@ -542,5 +544,15 @@ public class MyBTree implements BTree, Iterable<Comparable> {
 	@Override
 	public Iterator<Comparable> iterator() {
 		return new MyBTreeIterator(this);
+	}
+	
+	public static void main(String[] args) {
+		MyBTree tree = new MyBTree(1);
+		
+		tree.insert("hallo");
+		System.out.println(tree.insert("welt"));
+		System.out.println(tree.insert(12));
+		
+		tree.printInorder();
 	}
 }
